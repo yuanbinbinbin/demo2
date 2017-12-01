@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <TextView
+            android:id="@+id/id_item_dot_tv1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_f75231_circle"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/color_ffffff" />
+
+        <TextView
+            android:id="@+id/id_item_dot_tv2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_21a9ff_4_4_4_4"
+            android:gravity="center"
+            android:textColor="@color/color_ffffff"
+            android:text="1"/>
+
+        <TextView
+            android:id="@+id/id_item_dot_tv3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_f75231_circle"
+            android:gravity="center"
+            android:textColor="@color/color_ffffff"
+            android:text="3"/>
+    </RelativeLayout>
+
+</RelativeLayout>

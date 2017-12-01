@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/id_activity_parabola_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/id_activity_parabola_2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/color_21a9ff"
+        android:gravity="center"
+        android:onClick="parabola2"
+        android:text="二元"
+        android:textColor="@color/color_ffffff" />
+
+    <TextView
+        android:id="@+id/id_activity_parabola_bezier"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/color_21a9ff"
+        android:gravity="center"
+        android:onClick="bezier"
+        android:text="Bezier"
+        android:textColor="@color/color_ffffff" />
+
+    <TextView
+        android:id="@+id/id_activity_parabola_end"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/color_21a9ff"
+        android:gravity="center"
+        android:text="END"
+        android:textColor="@color/color_ffffff" />
+
+
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BaseLibrary</string>
+
+    <!--下拉刷新下拉加载用到的资源   START-->
+    <string name="string_result_list_view_go_refresh">松开手即可刷新</string>
+    <string name="string_result_list_view_last_refresh_time">上次更新时间：%1$s</string>
+    <string name="string_result_list_view_loading">加载中..</string>
+    <string name="string_result_list_view_already_end">已经没有了哦~</string>
+    <string name="string_result_list_view_click_more">点击加载更多</string>
+    <string name="string_result_list_view_already_finish">已经加载完毕</string>
+    <!--下拉刷新下拉加载用到的资源   END-->
+
+</resources>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yb.demo">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.listviews.ListViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.listviews.PullRefreshActivity" />
+        <activity android:name=".activity.listviews.PullLoadMoreActivity" />
+        <activity android:name=".activity.image.ImageActivity" />
+        <activity android:name=".activity.image.GiftImageViewActivity" />
+        <activity android:name=".activity.eventbus.EventBusActivity" />
+        <activity android:name=".activity.md.MDActivity" />
+        <activity android:name=".activity.md.bottomsheet.BottomSheetBehaviorActivity" />
+        <activity android:name=".activity.md.custombehavior.CustomBehavior1Activity" />
+        <activity android:name=".activity.md.coordinatorlayouttest.Coordinator1Activity" />
+        <activity android:name=".activity.md.sina.LikeSinaActivity" />
+        <activity android:name=".activity.ChangeStatusColorActivity" />
+        <activity android:name=".activity.EmulatorCheckActivity" />
+        <activity android:name=".activity.file.FileSizeActivity" />
+        <activity android:name=".activity.multiprocess.messenger.ProcessActivity" />
+
+        <service
+            android:name=".activity.multiprocess.messenger.OtherProecssService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":other" />
+
+        <activity android:name=".activity.multiprocess.aidl.AidlProcessActivity" />
+
+        <service
+            android:name=".activity.multiprocess.aidl.AidlOtherProcessService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":aidlOther" />
+
+        <activity android:name=".activity.rx.RxAndroidActivity" />
+        <activity android:name=".activity.share.ShareActivity" />
+        <activity android:name=".activity.dialog.DialogActivity" />
+        <activity android:name=".activity.listviews.RefreshSingleItemActivity" />
+        <activity android:name=".activity.customview.CustomViewActivity" />
+        <activity android:name=".activity.bezier.BezierActivity" />
+        <activity android:name=".activity.animations.ParabolaActivity" />
+        <activity android:name=".activity.animations.AnimationActivity" />
+        <activity android:name=".activity.animations.WaveActivity" />
+        <activity android:name=".activity.animations.DotActivity" />
+
+        <service
+            android:name=".activity.daemon.jobservice.DaemonService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".activity.daemon.jobservice.MyJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity android:name=".activity.daemon.jobservice.JobServicActivity" />
+        <activity android:name=".activity.daemon.DaemonActivity" />
+
+        <service
+            android:name=".activity.daemon.twoservice.DaemonService1"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".activity.daemon.twoservice.DaemonService2"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":daemon" />
+
+        <activity android:name=".activity.daemon.twoservice.TwoServiceActivity" />
+        <activity android:name=".activity.animations.BubbleActivity"></activity>
+    </application>
+
+</manifest>

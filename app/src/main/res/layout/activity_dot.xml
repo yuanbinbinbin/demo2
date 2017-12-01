@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_acitivty_dot_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/id_activity_dot_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.yb.demo.weights.bezier.dot.DotView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true" />
+</RelativeLayout>

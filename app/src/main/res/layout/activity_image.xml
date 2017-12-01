@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FBFBFB"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_common_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.yb.demo.weights.ShapeImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="matrix"
+                android:src="@drawable/image01" />
+
+            <com.yb.demo.weights.ShapeImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image01"
+                app:siv_left_bottom_corner_radius="10dp"
+                app:siv_left_top_corner_radius="10dp"
+                app:siv_right_bottom_corner_radius="10dp"
+                app:siv_right_top_corner_radius="10dp" />
+
+            <com.yb.demo.weights.ShapeImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image01"
+                app:siv_border_color="#de5c25"
+                app:siv_border_width="2dp" />
+
+            <com.yb.demo.weights.ShapeImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image01"
+                app:siv_oval="true" />
+
+            <com.yb.demo.weights.ShapeImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image01"
+                app:siv_border_color="#de5c25"
+                app:siv_border_width="2dp"
+                app:siv_oval="true" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

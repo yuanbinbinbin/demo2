@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemloadingView"
+    android:layout_width="fill_parent"
+    android:layout_height="120dp"
+    android:background="@color/color_transparent"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/itemloadinglayout"
+            android:layout_width="fill_parent"
+            android:layout_height="44dp"
+            android:background="@color/color_transparent">
+
+            <LinearLayout
+                android:id="@+id/itemloading"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/result_list_view_footer_background"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ProgressBar
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dip"
+                    android:indeterminateDrawable="@drawable/progressbar_result_list_view_loading"
+                    android:visibility="visible" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/string_result_list_view_loading"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/footer"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@color/color_transparent"
+                android:gravity="center"
+                android:text="@string/string_result_list_view_already_end"
+                android:textColor="#999999"
+                android:textSize="14sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/id_result_list_view_footer_click_more"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/string_result_list_view_click_more"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+</RelativeLayout>

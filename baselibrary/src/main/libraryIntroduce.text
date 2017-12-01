@@ -1,0 +1,8 @@
+---------------------------项目介绍-----------------------------------
+支持的功能
+
+ListView 上拉刷新、下拉加载更多
+    位置:com.base.baselibrary.weights.ResultListView
+
+SharePrefreence 工具类
+    位置：com.base.baselibrary.utils.PreferencesUtils
