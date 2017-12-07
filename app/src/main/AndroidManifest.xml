@@ -87,7 +87,8 @@
             android:process=":daemon" />
 
         <activity android:name=".activity.daemon.twoservice.TwoServiceActivity" />
-        <activity android:name=".activity.animations.BubbleActivity"></activity>
+        <activity android:name=".activity.animations.BubbleActivity" />
+        <activity android:name=".activity.animations.ClockActivity"></activity>
     </application>
 
 </manifest>

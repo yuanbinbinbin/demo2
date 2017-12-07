@@ -4,14 +4,10 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.os.Handler;
-import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -20,9 +16,8 @@ import android.view.animation.LinearInterpolator;
  * Created by Administrator on 2017/11/28.
  */
 public class WaveView extends View {
-    public static final float WAVE_PEAK_PERCENT = 0.25f;//波峰占控件高度的百分比
-    public static final float WAVE_TROUGH_PERCENT = 0.25f;//波谷占控件高度的百分比
-
+    public static final float WAVE_PEAK_PERCENT = 0.25f;//波峰波谷占控件高度的百分比
+    public static final int DURATION_ANIMATOR = 2000;//动画时间,ms单位
     /**
      * 波峰
      */
@@ -43,6 +38,8 @@ public class WaveView extends View {
     private int mWaterColor = 0xBB0000FF;
 
     private float percent = 0.0f;//完成度 1.0表示已经完成
+
+    private int duration = 0;
 
     public WaveView(Context context) {
         super(context);
@@ -76,6 +73,7 @@ public class WaveView extends View {
         mControlPoint2 = new PointF();
         mControlPoint3 = new PointF();
         mControlPoint4 = new PointF();
+        duration = DURATION_ANIMATOR;
     }
 
     private float mWidth, mHeight;
@@ -91,14 +89,16 @@ public class WaveView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         mWidth = w;
         mHeight = h;
-        Log.e("test", "onSizeChanged:" + mWidth + " " + mHeight);
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (!mIsRunning || percent <= 0) {
+        if (!mIsRunning) {
+            if (percent >= 1) {
+                canvas.drawColor(mWaterColor);
+            }
             return;
         }
         mPath.reset();
@@ -118,8 +118,14 @@ public class WaveView extends View {
     }
 
     private void reset(float dx) {
-        mWavePeak = mWaveHeight + (mHeight - mWaveHeight) * WAVE_PEAK_PERCENT;
-        mWaveTrough = mWaveHeight - (mHeight - mWaveHeight) * WAVE_PEAK_PERCENT;
+        float peakHeight = (mHeight - mWaveHeight) * WAVE_PEAK_PERCENT;
+
+        if (mWaveHeight - peakHeight < 0) {
+            peakHeight = mWaveHeight;
+        }
+
+        mWavePeak = mWaveHeight - peakHeight;
+        mWaveTrough = mWaveHeight + peakHeight;
 
         float width2 = mWidth / 2f;
         point1.x = -mWidth + dx;
@@ -156,7 +162,7 @@ public class WaveView extends View {
     private void startAnim() {
         valueAnimator = ValueAnimator.ofFloat(0, mWidth);
         valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.setDuration(2000);
+        valueAnimator.setDuration(duration);
         valueAnimator.setRepeatCount(Animation.INFINITE);
         //动画效果重复
 //        valueAnimator.setRepeatMode(Animation.RESTART);
@@ -198,7 +204,7 @@ public class WaveView extends View {
             return;
         }
         mIsRunning = true;
-        mWaveHeight = 0;
+        mWaveHeight = mHeight;
         percent = 0;
         reset(0);
         startAnim();
@@ -219,9 +225,45 @@ public class WaveView extends View {
         if (heightPercent > 1) {
             heightPercent = 1;
         }
-        Log.e("test", "percent" + heightPercent);
         percent = heightPercent;
-        mWaveHeight = (mHeight) * (1 - heightPercent);
+        startUpdateHeightAnim();
+    }
+
+    private ValueAnimator heightAnimator;
+
+    private void startUpdateHeightAnim() {
+        heightAnimator = ValueAnimator.ofFloat(mWaveHeight, (mHeight) * (1 - percent));
+        heightAnimator.setDuration(duration);
+        heightAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mWaveHeight = (float) animation.getAnimatedValue();
+            }
+        });
+        heightAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (isRunning()) {
+                    startUpdateHeightAnim();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        heightAnimator.start();
     }
 
     public boolean isRunning() {
