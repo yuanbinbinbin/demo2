@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_21a9ff_4_4_4_4"
+            android:padding="5dp"
+            android:text="TextSwitcher"
+            android:textColor="@color/color_ffffff" />
+
+        <TextSwitcher
+            android:id="@+id/id_activity_marquee_text_switcher1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:inAnimation="@anim/anim_down_in"
+            android:outAnimation="@anim/anim_up_out" />
+
+        <com.yb.demo.weights.marquee.AutoTextSwitcher
+            android:id="@+id/id_activity_marquee_text_switcher2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:inAnimation="@anim/anim_up_in"
+            android:outAnimation="@anim/anim_down_out" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_21a9ff_4_4_4_4"
+            android:padding="5dp"
+            android:text="ImageSwitcher"
+            android:textColor="@color/color_ffffff" />
+
+        <ImageSwitcher
+            android:id="@+id/id_activity_marquee_image_switcher1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:inAnimation="@anim/anim_right_in"
+            android:outAnimation="@anim/anim_left_out" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_21a9ff_4_4_4_4"
+            android:padding="5dp"
+            android:text="CustomSwitcher"
+            android:textColor="@color/color_ffffff" />
+
+        <com.yb.demo.weights.marquee.MarqueeView
+            android:id="@+id/id_activity_marquee_custom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inAnimation="@anim/anim_down_in"
+            android:outAnimation="@anim/anim_up_out" />
+    </LinearLayout>
+</ScrollView>

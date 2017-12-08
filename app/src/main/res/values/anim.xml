@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="in_down_out_down" mce_bogus="1" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/push_down_in</item>
-        <item name="android:windowExitAnimation">@anim/push_down_out</item>
+        <item name="android:windowEnterAnimation">@anim/anim_down_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_down_out</item>
     </style>
 </resources>

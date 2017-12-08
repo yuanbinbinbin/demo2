@@ -1,14 +1,10 @@
 package com.yb.demo.activity.animations;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 
 import com.yb.demo.R;
 import com.yb.demo.activity.BaseActivity;
 import com.yb.demo.utils.ActivityUtil;
-
-import java.util.concurrent.Executors;
 
 public class AnimationActivity extends BaseActivity {
 
@@ -51,9 +47,14 @@ public class AnimationActivity extends BaseActivity {
         ActivityUtil.startActivity(getContext(), BubbleActivity.class);
     }
 
-     // 时钟
+    // 时钟
     public void clock(View v) {
         ActivityUtil.startActivity(getContext(), ClockActivity.class);
+    }
+
+    // 时钟
+    public void marquee(View v) {
+        ActivityUtil.startActivity(getContext(), MarqueeActivity.class);
     }
 
 
