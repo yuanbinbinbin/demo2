@@ -3,10 +3,17 @@ package com.yb.demo.weights.bezier;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
@@ -35,11 +42,13 @@ public class WaveView extends View {
 
     private Path mPath;
 
-    private int mWaterColor = 0xBB0000FF;
+    private int mWaterColor = 0xFF0000FF;
 
     private float percent = 0.0f;//完成度 1.0表示已经完成
 
     private int duration = 0;
+
+    private Bitmap dstBitmap; //只显示重叠部分
 
     public WaveView(Context context) {
         super(context);
@@ -89,6 +98,7 @@ public class WaveView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         mWidth = w;
         mHeight = h;
+        reSizeDstBitmap();
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
@@ -97,7 +107,7 @@ public class WaveView extends View {
         super.onDraw(canvas);
         if (!mIsRunning) {
             if (percent >= 1) {
-                canvas.drawColor(mWaterColor);
+                drawFullView(canvas);
             }
             return;
         }
@@ -110,11 +120,33 @@ public class WaveView extends View {
         mPath.lineTo(point5.x, mHeight);
         mPath.lineTo(point1.x, mHeight);
         mPath.lineTo(point1.x, point1.y);
-        canvas.drawPath(mPath, mPaint);
+
+        int saveCount = canvas.saveLayer(0, 0, mWidth, mHeight, mPaint, Canvas.ALL_SAVE_FLAG);
+
+        if (dstBitmap != null) {
+            canvas.drawBitmap(dstBitmap, 0, 0, mPaint);
+            mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+            canvas.drawPath(mPath, mPaint);
+            mPaint.setXfermode(null);
+        } else {
+            canvas.drawPath(mPath, mPaint);
+        }
+        canvas.restoreToCount(saveCount);
         if (percent >= 1) {
             mIsRunning = false;
             percent = 1;
         }
+    }
+
+    private void drawFullView(Canvas canvas) {
+        int saveCount = canvas.saveLayer(0, 0, mWidth, mHeight, mPaint, Canvas.ALL_SAVE_FLAG);
+        canvas.drawColor(mWaterColor);
+        if (dstBitmap != null) {
+            mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+            canvas.drawBitmap(dstBitmap, 0, 0, mPaint);
+        }
+        mPaint.setXfermode(null);
+        canvas.restoreToCount(saveCount);
     }
 
     private void reset(float dx) {
@@ -269,4 +301,39 @@ public class WaveView extends View {
     public boolean isRunning() {
         return mIsRunning;
     }
+
+    public void setDstBitmap(Bitmap dstBitmap) {
+        this.dstBitmap = dstBitmap;
+        reSizeDstBitmap();
+    }
+
+    public void setDstBitmap(@DrawableRes int dstBitmapRes) {
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        this.dstBitmap = BitmapFactory.decodeResource(getResources(), dstBitmapRes, opts);
+        reSizeDstBitmap();
+    }
+
+    private void reSizeDstBitmap() {
+        if (dstBitmap == null || mWidth <= 0 || mHeight <= 0) {
+            return;
+        }
+        int bitmapWidth = dstBitmap.getWidth();
+        int bitmapHeight = dstBitmap.getHeight();
+
+        float scaleWidth = mWidth / bitmapWidth;
+        float scaleHeight = mHeight / bitmapHeight;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        dstBitmap = Bitmap.createBitmap(dstBitmap, 0, 0, bitmapWidth, bitmapHeight, matrix, true);
+    }
+
+    public void setWaterColor(@ColorInt int mWaterColor) {
+        this.mWaterColor = mWaterColor;
+        if (mPaint != null) {
+            mPaint.setColor(mWaterColor);
+        }
+    }
+
 }
