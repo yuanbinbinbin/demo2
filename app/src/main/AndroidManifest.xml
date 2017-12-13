@@ -89,7 +89,8 @@
         <activity android:name=".activity.daemon.twoservice.TwoServiceActivity" />
         <activity android:name=".activity.animations.BubbleActivity" />
         <activity android:name=".activity.animations.ClockActivity" />
-        <activity android:name=".activity.animations.MarqueeActivity"></activity>
+        <activity android:name=".activity.animations.MarqueeActivity" />
+        <activity android:name=".activity.string.StringActivity"></activity>
     </application>
 
 </manifest>

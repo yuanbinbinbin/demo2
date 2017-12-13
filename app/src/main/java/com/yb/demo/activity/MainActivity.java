@@ -26,6 +26,7 @@ import com.yb.demo.activity.md.MDActivity;
 import com.yb.demo.activity.multiprocess.aidl.AidlProcessActivity;
 import com.yb.demo.activity.multiprocess.messenger.ProcessActivity;
 import com.yb.demo.activity.share.ShareActivity;
+import com.yb.demo.activity.string.StringActivity;
 import com.yb.demo.utils.ActivityUtil;
 import com.yb.demo.utils.DeviceUtil;
 import com.yb.demo.utils.LogUtil;
@@ -138,6 +139,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 19:
                 ActivityUtil.startActivity(this, DaemonActivity.class);
                 break;
+            case 20:
+                ActivityUtil.startActivity(this, StringActivity.class);
+                break;
         }
     }
 
@@ -199,6 +203,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "保活");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "SpannableString");
         datas.add(data1);
         return datas;
     }
