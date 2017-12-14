@@ -1,7 +1,12 @@
-package com.yb.demo.java.designpattern;
+package com.yb.demo.other.java.designpattern.create;
 
 /**
  * 单例模式
+ * 主要解决：一个全局使用的类频繁地创建与销毁。
+ * 何时使用：当您想控制实例数目，节省系统资源的时候。
+ * 如何解决：判断系统是否已经有这个单例，如果有则返回，如果没有则创建。
+ * 关键代码：构造函数是私有的。
+ * 使用场景： application、用户帐号信息、屏幕宽高、Glied.width()饿汉模式、EventBus.getDefault 懒汉安全模式3 双重锁模式
  * Created by yb on 2017/12/11.
  */
 public class SignletonTest {
@@ -68,7 +73,7 @@ public class SignletonTest {
         }
     }
 
-    //懒汉安全模式3 实现懒加载，线程安全，性能改善
+    //懒汉安全模式3 双重锁模式 实现懒加载，线程安全，性能改善
     static class LazySafeSignleton3 {
         private static LazySafeSignleton3 instance;
 

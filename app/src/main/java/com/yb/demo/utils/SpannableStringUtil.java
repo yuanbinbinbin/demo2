@@ -27,7 +27,6 @@ import android.text.style.UpdateAppearance;
  * Created by yb on 2017/12/13.
  */
 public class SpannableStringUtil {
-    private SpannableStringUtil instance;
     private SpannableStringBuilder spannableString;
 
     private SpannableStringUtil(SpannableStringBuilder spannableString) {
