@@ -8,12 +8,21 @@ public class Start {
     //使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。
     //设计模式总共有23种，可分为3大类，创建型模式、结构型模式、行为型模式
 
+    //单一职责原则 ImageLoader只负责图片的加载，ImageCache、ImageDownload分别单独出来
+    //开闭原则 对扩展开放对修改关闭、因需求的变化需要对原有代码进行修改时，可能会将错误引入原本已经通过测试了的旧代码中，破坏原有系统。因此，当软件需要变化时，我们应该尽量通过扩展的方式来实现变化
+            //ImageLoader中ImageCache、ImageDownload定义成接口、通过实现接口、来完成不同的缓存策略、下载策略
+    //里氏替换原则LSP 依赖于继承和多态 存在父类的地方，都可以用子类来替换
+           //ImageLoader中不同的缓存策略、下载策略 都可以替换ImageCache、ImageDownload
+    //依赖倒置原则  高层模块不应该依赖底层模块的具体实现
+        //ImageLoader中的缓存策略、下载策略 应声明为抽象类或接口：ImageCache、ImageDownload而不是具体的实现类
+    //    接口隔离原则 降低耦合度，接口单独设计，互相隔离
+
 //    1	创建型模式
 //    这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用 new 运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。
 //
 //    工厂模式（Factory Pattern） create/FactoryTest.java   android 中的体现：Dialog 集中管理、  Fragment 集中管理
 //    抽象工厂模式（Abstract Factory Pattern）create/AbstractFactory.java  工厂模式升级版 更加的灵活 android 中的体现:不同样式的LoadingDialog 由不同的Factory生成、QQ 换皮肤
-//    单例模式（Singleton Pattern） create/SignletonTest.java  android 中的体现：application、用户帐号信息、屏幕宽高、Glied.width()饿汉模式、EventBus.getDefault 懒汉安全模式3 双重锁模式
+//    单例模式（Singleton Pattern） create/SignletonTest.java  android 中的体现：application、用户帐号信息、屏幕宽高、Glied.width()饿汉模式、EventBus.getDefault 懒汉安全模式也叫双重锁模式
 //    建造者模式（Builder Pattern） create/BuilderTest.java android中的体现：StringBuilder、AlertDialog、Notification、OkHttp new Request.Builder().url("http://www.baidu.com").build()
 //    原型模式（Prototype Pattern）create/Prototype.java  android中的体现：效果 ctrl+c ctrl+v 、 Intent、OkHttp
 
@@ -21,7 +30,7 @@ public class Start {
 //    2	结构型模式
 //    这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。
 //
-//    适配器模式（Adapter Pattern）
+//    适配器模式（Adapter Pattern）structure/AdapterTest.java android中的体现:ListView、RecyclerView
 //    桥接模式（Bridge Pattern）
 //    过滤器模式（Filter、Criteria Pattern）
 //    组合模式（Composite Pattern）

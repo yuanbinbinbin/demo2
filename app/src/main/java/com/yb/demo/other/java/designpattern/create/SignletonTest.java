@@ -6,7 +6,7 @@ package com.yb.demo.other.java.designpattern.create;
  * 何时使用：当您想控制实例数目，节省系统资源的时候。
  * 如何解决：判断系统是否已经有这个单例，如果有则返回，如果没有则创建。
  * 关键代码：构造函数是私有的。
- * 使用场景： application、用户帐号信息、屏幕宽高、Glied.width()饿汉模式、EventBus.getDefault 懒汉安全模式3 双重锁模式
+ * 使用场景： application、用户帐号信息、屏幕宽高、Glied.width()饿汉模式、EventBus.getDefault 懒汉安全模式 与之对应的是:3 双重锁模式
  * Created by yb on 2017/12/11.
  */
 public class SignletonTest {
