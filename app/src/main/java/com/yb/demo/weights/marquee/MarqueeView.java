@@ -8,12 +8,16 @@ import android.widget.ViewSwitcher;
 import java.util.List;
 
 /**
+ * 轮播View<br>
+ * 有且仅有一条数据时，不会轮播<br>
+ * android:inAnimation="@anim/anim_down_in"<br>
+ * android:outAnimation="@anim/anim_up_out"
  * Created by yb on 2017/12/8.
  */
 public class MarqueeView extends ViewSwitcher {
 
     //帮助生成view和更新view
-    private MarqueeViewHelper helper;
+    private MarqueeViewBaseAdapter baseAdapter;
 
     //停顿时间 ms
     private long delayTime = 3000;
@@ -62,12 +66,22 @@ public class MarqueeView extends ViewSwitcher {
     }
 
     //设置Helper
-    public void setHelper(MarqueeViewHelper he) {
-        this.helper = he;
+    public void setAdapter(MarqueeViewBaseAdapter he) {
+        if (he == null) {
+            return;
+        }
+        clear();
+        this.baseAdapter = he;
         setFactory();
         if (!isFilling && isShowing) {
             showNextData();
         }
+    }
+
+    private void clear() {
+        removeCallbacks(nextTextRunnable);
+        isFilling = false;
+        removeAllViews();
     }
 
     //View是否正在显示  建议在onStart 调用setIsShowing(true) onStop 调用setIsShowing(false)
@@ -81,22 +95,22 @@ public class MarqueeView extends ViewSwitcher {
 
     //更显当前view
     public void setCurrentData(Object t) {
-        if (t == null || helper == null) {
+        if (t == null || baseAdapter == null) {
             return;
         }
         View view = getCurrentView();
         if (view == null) {
             return;
         }
-        helper.updateView(view, t);
+        baseAdapter.updateView(view, t);
     }
 
     //显示下一个view
     public void showNextData() {
-        if (helper == null) {
+        if (baseAdapter == null) {
             return;
         }
-        List mList = helper.getmList();
+        List mList = baseAdapter.getmList();
         if (mList == null || mList.size() <= 0) {
             reset();
         } else {
@@ -111,10 +125,14 @@ public class MarqueeView extends ViewSwitcher {
                 if (view == null) {
                     return;
                 }
-                helper.updateView(view, t);
+                baseAdapter.updateView(view, t);
                 showNext();
-                isFilling = true;
-                postDelayed(nextTextRunnable, delayTime);
+                if (mList.size() > 1) {
+                    isFilling = true;
+                    postDelayed(nextTextRunnable, delayTime);
+                } else {
+                    isFilling = false;
+                }
             } else {
                 isFilling = false;
             }
@@ -145,18 +163,18 @@ public class MarqueeView extends ViewSwitcher {
     }
 
     private void setFactory() {
-        if (helper == null) {
+        if (baseAdapter == null) {
             return;
         }
         super.setFactory(new ViewFactory() {
             @Override
             public View makeView() {
-                return helper.createView(getContext());
+                return baseAdapter.createView(getContext());
             }
         });
     }
 
-    public static abstract class MarqueeViewHelper<T> {
+    public static abstract class MarqueeViewBaseAdapter<T> {
         //将要显示的数据
         private List<T> mList;
 
