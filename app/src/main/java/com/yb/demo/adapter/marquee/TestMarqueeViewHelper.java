@@ -14,7 +14,7 @@ import com.yb.demo.weights.marquee.MarqueeView;
 /**
  * Created by yb on 2017/12/8.
  */
-public class TestMarqueeViewHelper extends MarqueeView.MarqueeViewHelper<MarqueeViewTestBean> {
+public class TestMarqueeViewHelper extends MarqueeView.MarqueeViewBaseAdapter<MarqueeViewTestBean> {
     @Override
     public View createView(Context context) {
         if (context == null) {

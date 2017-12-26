@@ -125,12 +125,12 @@ public class MarqueeActivity extends BaseActivity {
         TestMarqueeViewHelper helper = new TestMarqueeViewHelper();
         List<MarqueeViewTestBean> list = new ArrayList<MarqueeViewTestBean>();
         list.add(new MarqueeViewTestBean(R.drawable.live_ic_donuts,"我是第1条测试数据"));
-        list.add(new MarqueeViewTestBean(R.drawable.live_ic_glasses,"我是第2条测试数据我是第2条测试数据我是第2条测试数据"));
-        list.add(new MarqueeViewTestBean(R.drawable.live_ic_good,"我是第3条测试数据我是第3条测试数据"));
-        list.add(new MarqueeViewTestBean(R.drawable.live_ic_kele,"我是第4条测试数据"));
-        list.add(new MarqueeViewTestBean(R.drawable.live_ic_love1,"我是第5条测试数据我是第5条测试数据我是第5条测试数据我是第5条测试数据"));
+//        list.add(new MarqueeViewTestBean(R.drawable.live_ic_glasses,"我是第2条测试数据我是第2条测试数据我是第2条测试数据"));
+//        list.add(new MarqueeViewTestBean(R.drawable.live_ic_good,"我是第3条测试数据我是第3条测试数据"));
+//        list.add(new MarqueeViewTestBean(R.drawable.live_ic_kele,"我是第4条测试数据"));
+//        list.add(new MarqueeViewTestBean(R.drawable.live_ic_love1,"我是第5条测试数据我是第5条测试数据我是第5条测试数据我是第5条测试数据"));
         helper.setmList(list);
-        mMarqueeView.setHelper(helper);
+        mMarqueeView.setAdapter(helper);
     }
     @Override
     protected void onStop() {

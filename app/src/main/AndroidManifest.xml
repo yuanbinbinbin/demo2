@@ -90,7 +90,9 @@
         <activity android:name=".activity.animations.BubbleActivity" />
         <activity android:name=".activity.animations.ClockActivity" />
         <activity android:name=".activity.animations.MarqueeActivity" />
-        <activity android:name=".activity.string.StringActivity"></activity>
+        <activity android:name=".activity.string.StringActivity" />
+        <activity android:name=".activity.exchange.meituan1.MeiTuanMainActivity1" />
+        <activity android:name=".activity.exchange.ExchangeActivity"></activity>
     </application>
 
 </manifest>

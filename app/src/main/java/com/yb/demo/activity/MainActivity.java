@@ -19,6 +19,7 @@ import com.yb.demo.activity.customview.CustomViewActivity;
 import com.yb.demo.activity.daemon.DaemonActivity;
 import com.yb.demo.activity.dialog.DialogActivity;
 import com.yb.demo.activity.eventbus.EventBusActivity;
+import com.yb.demo.activity.exchange.ExchangeActivity;
 import com.yb.demo.activity.file.FileSizeActivity;
 import com.yb.demo.activity.image.ImageActivity;
 import com.yb.demo.activity.listviews.ListViewActivity;
@@ -142,6 +143,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 20:
                 ActivityUtil.startActivity(this, StringActivity.class);
                 break;
+            case 21:
+                ActivityUtil.startActivity(this, ExchangeActivity.class);
+                break;
         }
     }
 
@@ -206,6 +210,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "SpannableString");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "Activity动画切换");
         datas.add(data1);
         return datas;
     }

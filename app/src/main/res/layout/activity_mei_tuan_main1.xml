@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="#ee5131"
+        android:gravity="center"
+        android:text="banner" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="170dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/id_activity_mei_tuan_main1_v1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#cb465f"
+            android:gravity="center"
+            android:onClick="onclick1"
+            android:text="火车票" />
+
+        <TextView
+            android:id="@+id/id_activity_mei_tuan_main1_v2"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#6633b6"
+            android:gravity="center"
+            android:onClick="onclick2"
+            android:text="国内机票" />
+
+        <TextView
+            android:id="@+id/id_activity_mei_tuan_main1_v3"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#346ad4"
+            android:gravity="center"
+            android:onClick="onclick3"
+            android:text="国际/港澳台机票" />
+
+        <TextView
+            android:id="@+id/id_activity_mei_tuan_main1_v4"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#07a8aa"
+            android:gravity="center"
+            android:onClick="onclick4"
+            android:text="汽车票" />
+
+        <TextView
+            android:id="@+id/id_activity_mei_tuan_main1_v5"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#ff884a"
+            android:gravity="center"
+            android:onClick="onclick5"
+            android:text="船票" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/id_activity_mei_tuan_main1_container1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#cb465f"
+        android:visibility="invisible" />
+
+    <View
+        android:id="@+id/id_activity_mei_tuan_main1_container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#6633b6"
+        android:visibility="invisible" />
+
+    <View
+        android:id="@+id/id_activity_mei_tuan_main1_container3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#346ad4"
+        android:visibility="invisible" />
+
+    <View
+        android:id="@+id/id_activity_mei_tuan_main1_container4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#07a8aa"
+        android:visibility="invisible" />
+
+    <View
+        android:id="@+id/id_activity_mei_tuan_main1_container5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff884a"
+        android:visibility="invisible" />
+</RelativeLayout>
