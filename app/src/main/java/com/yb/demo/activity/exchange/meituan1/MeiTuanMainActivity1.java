@@ -23,7 +23,6 @@ public class MeiTuanMainActivity1 extends BaseActivity {
     private List<View> mItems;
     private List<View> mContainers;
 
-    private int showPosition = -1;
 
     @Override
     protected int getLayoutId() {
@@ -91,49 +90,76 @@ public class MeiTuanMainActivity1 extends BaseActivity {
         show(4);
     }
 
+    //哪个标签在显示
+    private int showPosition = -1;
     private float scalePosition;
     private float scaleStart;
+    private int animationDuration = 500;
 
     private void show(int position) {
         showPosition = position;
 
-        View clickView = mItems.get(position);
+        //初始化开始 伸展的位置 和 初始高度
+        final View clickView = mItems.get(position);
         int[] location = new int[2];
         clickView.getLocationOnScreen(location);
         final View container = mContainers.get(position);
         int[] location2 = new int[2];
         container.getLocationOnScreen(location2);
+        //初始高度
         scaleStart = 1.0f * clickView.getHeight() / container.getHeight();
+        //初始伸缩位置
         scalePosition = 1.0f * (location[1] - location2[1] + clickView.getHeight() / 2) / container.getHeight();
 
         ScaleAnimation scaleAnimation = new ScaleAnimation(1, 1, scaleStart, 1, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, scalePosition);
-        scaleAnimation.setDuration(500);
-        container.setVisibility(View.VISIBLE);
-        container.startAnimation(scaleAnimation);
-
-        //向上平移
-        for (int i = 0; i < position; i++) {
-            View item = mItems.get(i);
-            ObjectAnimator animator = ObjectAnimator.ofFloat(item, "translationY", item.getTranslationY(), -(item.getHeight() + item.getY()));
-            animator.setDuration(600).start();
-        }
-        //向下平移
-        for (int i = position + 1; i < mItems.size(); i++) {
-            View item = mItems.get(i);
-            ObjectAnimator animator = ObjectAnimator.ofFloat(item, "translationY", item.getTranslationY(), ((ViewGroup) item.getParent()).getHeight() + item.getTranslationY());
-            animator.setDuration(1000).start();
-        }
-    }
-
-    private void hide() {
-
-        final View container = mContainers.get(showPosition);
-        ScaleAnimation scaleAnimation = new ScaleAnimation(1, 1, 1, scaleStart, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, scalePosition);
-        scaleAnimation.setDuration(600);
+        scaleAnimation.setDuration(animationDuration);
         scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                clickView.setEnabled(false);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        container.setVisibility(View.VISIBLE);
+        container.startAnimation(scaleAnimation);
+
+
+        //向上平移
+        for (int i = 0; i < position; i++) {
+            View item = mItems.get(i);
+            ObjectAnimator animator = ObjectAnimator.ofFloat(item, "translationY", item.getTranslationY(), -(item.getHeight() + item.getTop()));
+            animator.setDuration(animationDuration).start();
+        }
+
+        //获取父View的高度
+        int parentHeight = ((ViewGroup) clickView.getParent()).getHeight();
+
+        //向下平移
+        for (int i = position + 1; i < mItems.size(); i++) {
+            View item = mItems.get(i);
+            ObjectAnimator animator = ObjectAnimator.ofFloat(item, "translationY", item.getTranslationY(), (parentHeight - item.getTop()));
+            animator.setDuration(animationDuration).start();
+        }
+    }
+
+    private void hide() {
+        final View clickView = mItems.get(showPosition);
+        final View container = mContainers.get(showPosition);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1, 1, 1, scaleStart, Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, scalePosition);
+        scaleAnimation.setDuration(animationDuration);
+        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                clickView.setEnabled(true);
             }
 
             @Override
@@ -148,17 +174,17 @@ public class MeiTuanMainActivity1 extends BaseActivity {
         });
         container.startAnimation(scaleAnimation);
 
-        //向上平移
+        //向上平移的恢复动画
         for (int i = 0; i < showPosition; i++) {
             View item = mItems.get(i);
             ObjectAnimator animator = ObjectAnimator.ofFloat(item, "translationY", item.getTranslationY(), 0);
-            animator.setDuration(500).start();
+            animator.setDuration(animationDuration).start();
         }
-        //向下平移
+        //向下平移的恢复动画
         for (int i = showPosition + 1; i < mItems.size(); i++) {
             View item = mItems.get(i);
             ObjectAnimator animator = ObjectAnimator.ofFloat(item, "translationY", item.getTranslationY(), 0);
-            animator.setDuration(600).start();
+            animator.setDuration(animationDuration).start();
         }
 
         showPosition = -1;
