@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:onClick="bubble"
-        android:text="点赞" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <com.yb.demo.weights.bezier.bubble.BubbleView
-        android:id="@+id/id_activity_bubble_bubble_view"
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="start"
+            android:text="START" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="start2"
+            android:text="START" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentBottom="true" />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <com.yb.demo.weights.bezier.bubble.BubbleView
+            android:id="@+id/id_activity_bubble_bubble_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="bubble" />
+
+
+        <com.yb.demo.weights.bezier.bubble.BubbleSurfaceView
+            android:id="@+id/id_activity_bubble_bubble_surface_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="bubbleSurfaceView" />
+    </LinearLayout>
+
+
+</LinearLayout>
