@@ -32,4 +32,6 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
     compile 'com.android.support:support-v4:25.3.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }
