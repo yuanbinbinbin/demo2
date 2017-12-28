@@ -6,7 +6,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
@@ -24,8 +23,8 @@ import com.yb.demo.activity.file.FileSizeActivity;
 import com.yb.demo.activity.image.ImageActivity;
 import com.yb.demo.activity.listviews.ListViewActivity;
 import com.yb.demo.activity.md.MDActivity;
+import com.yb.demo.activity.memory.MemoryActivity;
 import com.yb.demo.activity.multiprocess.aidl.AidlProcessActivity;
-import com.yb.demo.activity.multiprocess.messenger.ProcessActivity;
 import com.yb.demo.activity.share.ShareActivity;
 import com.yb.demo.activity.string.StringActivity;
 import com.yb.demo.utils.ActivityUtil;
@@ -146,6 +145,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 21:
                 ActivityUtil.startActivity(this, ExchangeActivity.class);
                 break;
+            case 22:
+                ActivityUtil.startActivity(this, MemoryActivity.class);
+                break;
         }
     }
 
@@ -213,6 +215,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "Activity动画切换");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "Memory");
         datas.add(data1);
         return datas;
     }
