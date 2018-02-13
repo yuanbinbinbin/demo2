@@ -7,6 +7,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- 账户保活Start -->
+
+
+    <!-- 查看账户需要的权限 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <!-- 添加账户需要的权限 -->
+    <uses-permission
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
+        android:maxSdkVersion="22" />
+
+    <!-- 账户保活End -->
     <application
         android:name=".application.YbApplication"
         android:allowBackup="true"
@@ -96,7 +108,41 @@
         <activity android:name=".activity.exchange.meituan1.MeiTuanMainActivity1" />
         <activity android:name=".activity.exchange.ExchangeActivity" />
         <activity android:name=".activity.memory.MemoryInfoActivity" />
-        <activity android:name=".activity.memory.MemoryActivity"></activity>
+        <activity android:name=".activity.memory.MemoryActivity" />
+
+        <!-- 账户保活Service -->
+        <service
+            android:name=".activity.daemon.account.AccountService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/account_service" />
+        </service>
+        <service
+            android:name=".activity.daemon.account.AccountSyncService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/account_sync_adapter" />
+        </service>
+
+        <provider
+            android:name=".activity.daemon.account.AccountProvider"
+            android:authorities="com.yb.demo.account.provider"
+            android:enabled="true"
+            android:exported="true"></provider>
+        <!-- 账户保活Service -->
+
     </application>
 
 </manifest>

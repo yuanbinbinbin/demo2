@@ -1,9 +1,11 @@
 package com.yb.demo.activity.daemon;
 
+import android.util.Log;
 import android.view.View;
 
 import com.yb.demo.R;
 import com.yb.demo.activity.BaseActivity;
+import com.yb.demo.activity.daemon.account.AccountDemonUtil;
 import com.yb.demo.activity.daemon.jobservice.JobServicActivity;
 import com.yb.demo.activity.daemon.twoservice.TwoServiceActivity;
 import com.yb.demo.utils.ActivityUtil;
@@ -38,5 +40,10 @@ public class DaemonActivity extends BaseActivity {
     //双进程保活
     public void twoService(View v) {
         ActivityUtil.startActivity(getContext(), TwoServiceActivity.class);
+    }
+
+    //Account保活
+    public void accountDemo(View v) {
+        AccountDemonUtil.addAccount(this);
     }
 }

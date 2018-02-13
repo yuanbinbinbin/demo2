@@ -30,4 +30,16 @@
         android:layout_height="0.5dp"
         android:background="@color/color_999999" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:onClick="accountDemo"
+        android:text="account保活" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_999999" />
+
 </LinearLayout>
