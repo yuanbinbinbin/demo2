@@ -43,7 +43,7 @@ public class CommonIntro {
             @Override
             public void onClick(View view) {
                 if (listener != null) {
-                    listener.onClick(view, null);
+                    listener.onClick(view);
                 }
             }
         });
@@ -51,7 +51,7 @@ public class CommonIntro {
             @Override
             public void onClick(View view) {
                 if (listener != null) {
-                    listener.onClick(view, null);
+                    listener.onClick(view);
                 }
             }
         });

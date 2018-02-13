@@ -50,7 +50,7 @@ public class BottomSelectNoTitle {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onClick(v, null);
+                    listener.onClick(v);
                 }
             }
         });
