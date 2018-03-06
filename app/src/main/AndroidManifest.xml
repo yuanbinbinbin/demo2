@@ -140,8 +140,19 @@
             android:name=".activity.daemon.account.AccountProvider"
             android:authorities="com.yb.demo.account.provider"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
         <!-- 账户保活Service -->
+
+
+        <!-- 监听通知 保活 方法一 -->
+        <service
+            android:name=".activity.daemon.notification.NotificationService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:process=":notification">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
 
     </application>
 
