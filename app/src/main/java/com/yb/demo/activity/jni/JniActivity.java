@@ -32,4 +32,8 @@ public class JniActivity extends BaseActivity {
     public void simple1(View view){
         ToastUtil.showShortTime(getContext(), Simple1.sayHello("我是 java!"));
     }
+
+    public void printLog(View view){
+        Simple1.printLog("哈哈哈 我是Log 信息");
+    }
 }

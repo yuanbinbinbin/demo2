@@ -11,4 +11,5 @@ public class Simple1 {
     }
 
     public static native String sayHello(String str);
+    public static native void printLog(String str);
 }

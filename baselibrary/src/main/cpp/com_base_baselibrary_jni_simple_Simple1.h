@@ -9,5 +9,4 @@
 
 #include <jni.h>
 #include <string.h>
-#include <stdio.h>
-#include <malloc.h>
+#include <android/log.h>
