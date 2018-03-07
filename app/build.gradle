@@ -10,6 +10,20 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a'//, 'x86_64', 'arm64-v8a', mips, mips64...加入需要生成的文件夹
+//            armeabi-v7a: 第7代及以上的 ARM 处理器。2011年15月以后的生产的大部分Android设备都使用它.cpu32位
+//            arm64-v8a: 第8代、64位ARM处理器，很少设备，三星 Galaxy S6是其中之一。
+//            armeabi: 第5代、第6代的ARM处理器，早期的手机用的比较多。cpu32
+//            x86: 平板、模拟器用得比较多。cpu32
+//            x86_64: 64位的平板。
+//           其中arm类型的是往下兼容策略，比如arm64-v8a肯定兼容armeabi/armeabi-v7a，
+//           也就是说armeabi/armeabi-v7a架构的so文件可以用在arm64-v8a的设备中的，armeabi也可以在armeabi-v7a中使用
+//           所有的x86/x86_64/armeabi-v7a/arm64-v8a设备都支持armeabi架构的.so文件，因此似乎移除其他ABIs的.so文件是一个减少APK大小的好技巧。
+//           但事实上并不是：这不只影响到函数库的性能和兼容性。
+//           x86设备能够很好的运行ARM类型函数库，但并不保证100%不发生crash，特别是对旧设备。64位设备（arm64-v8a, x86_64, mips64）能够运行32位的函数库，但是以32位模式运行，在64位平台上运行32位版本的ART和Android组件，将丢失专为64位优化过的性能（ART，webview，media等等）。
+//           From:http://blog.csdn.net/ouyang_peng/article/details/51168072
+        }
     }
     buildTypes {
         release {
@@ -31,7 +45,8 @@ dependencies {
 //    compile 'io.reactivex:rxandroid:1.0.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }

@@ -21,6 +21,7 @@ import com.yb.demo.activity.eventbus.EventBusActivity;
 import com.yb.demo.activity.exchange.ExchangeActivity;
 import com.yb.demo.activity.file.FileSizeActivity;
 import com.yb.demo.activity.image.ImageActivity;
+import com.yb.demo.activity.jni.JniActivity;
 import com.yb.demo.activity.listviews.ListViewActivity;
 import com.yb.demo.activity.md.MDActivity;
 import com.yb.demo.activity.memory.MemoryActivity;
@@ -148,6 +149,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 22:
                 ActivityUtil.startActivity(this, MemoryActivity.class);
                 break;
+            case 23:
+                ActivityUtil.startActivity(this, JniActivity.class);
+                break;
         }
     }
 
@@ -218,6 +222,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "Memory");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "Jni");
         datas.add(data1);
         return datas;
     }
