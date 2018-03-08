@@ -6,6 +6,7 @@ import android.view.View;
 import com.yb.demo.R;
 import com.yb.demo.activity.BaseActivity;
 import com.yb.demo.activity.daemon.account.AccountDemonUtil;
+import com.yb.demo.activity.daemon.c.NativeDemonService;
 import com.yb.demo.activity.daemon.jobservice.JobServicActivity;
 import com.yb.demo.activity.daemon.notification.NotificationService;
 import com.yb.demo.activity.daemon.twoservice.TwoServiceActivity;
@@ -56,5 +57,11 @@ public class DaemonActivity extends BaseActivity {
         } else {
             NotificationService.openNotificationListenSettings(this);
         }
+    }
+
+    //native保活
+    public void nativeDemo(View view) {
+        Intent intent = new Intent(this, NativeDemonService.class);
+        startService(intent);
     }
 }

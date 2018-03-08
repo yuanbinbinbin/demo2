@@ -155,6 +155,13 @@
         </service>
 
         <activity android:name=".activity.jni.JniActivity"></activity>
+
+        <!-- 本地保活 -->
+        <service
+            android:name=".activity.daemon.c.NativeDemonService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":nativeDemon" />
     </application>
 
 </manifest>
