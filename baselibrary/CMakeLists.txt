@@ -16,6 +16,7 @@ add_library(
             src/main/cpp/com_base_baselibrary_jni_simple_Simple1.c
             src/main/cpp/com_base_baselibrary_jni_daemon_NativeDaemonUtil.c
             src/main/cpp/com_base_baselibrary_jni_vm_CheckVMUtil.c
+            src/main/cpp/com_base_baselibrary_jni_security_SecurityUtil.c
 )
 
 # 3. find_library 定义当前代码库需要依赖的系统或者第三方库文件
