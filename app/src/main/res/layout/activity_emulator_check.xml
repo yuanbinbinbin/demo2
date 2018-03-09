@@ -14,10 +14,4 @@
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
-    <com.yb.demo.weights.GLSurfaceView
-        android:id="@+id/hwGPU"
-        android:layout_width="1dip"
-        android:layout_height="1dip"
-        android:layout_below="@+id/sample_text" />
-
 </RelativeLayout>
