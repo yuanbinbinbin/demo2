@@ -18,7 +18,7 @@ import com.base.baselibrary.utils.permission.lib.source.SupportFragmentSource;
 import java.util.List;
 
 /**
- *
+ * From : https://github.com/yanzhenjie/AndPermission
  * Created by yb on 2018/3/12.
  */
 
@@ -34,7 +34,7 @@ public class PermissionHelper {
             FACTORY = new LRequestFactory();
         }
     }
-    
+
     private PermissionHelper(){}
 
     /**

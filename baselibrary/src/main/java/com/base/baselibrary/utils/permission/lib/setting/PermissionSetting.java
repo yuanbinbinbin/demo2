@@ -20,10 +20,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.base.baselibrary.utils.permission.lib.source.Source;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 /**
  * <p>Setting executor.</p>
@@ -79,7 +85,7 @@ public class PermissionSetting implements SettingService {
         } else if (MARK.contains("smartisan")) {
             return smartisanApi(mSource.getContext());
         }
-        return defaultApi(mSource.getContext());
+        return commonApi(mSource.getContext());
     }
 
     /**
@@ -92,11 +98,24 @@ public class PermissionSetting implements SettingService {
     }
 
     /**
+     * app common permission setting page.
+     *
+     * @param context
+     * @return
+     */
+    private static Intent commonApi(Context context) {
+        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+        intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+        intent.putExtra("extra_pkgname", context.getPackageName());
+        return intent;
+    }
+
+    /**
      * Huawei cell phone Api23 the following method.
      */
     private static Intent huaweiApi(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return defaultApi(context);
+            return commonApi(context);
         }
         Intent intent = new Intent();
         intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity"));
@@ -107,8 +126,24 @@ public class PermissionSetting implements SettingService {
      * Xiaomi phone to achieve the method.
      */
     private static Intent xiaomiApi(Context context) {
-        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-        intent.putExtra("extra_pkgname", context.getPackageName());
+        Intent intent;
+        if (isMIUI8()) {
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+                //小米miui8系统 23
+                intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + context.getPackageName()));
+            } else {
+                // MIUI 8
+                intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                intent.putExtra("extra_pkgname", context.getPackageName());
+            }
+        } else {
+            // MIUI 5/6/7
+            intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+            intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+            intent.putExtra("extra_pkgname", context.getPackageName());
+        }
         return intent;
     }
 
@@ -130,7 +165,7 @@ public class PermissionSetting implements SettingService {
      * Oppo phone to achieve the method.
      */
     private static Intent oppoApi(Context context) {
-        return defaultApi(context);
+        return commonApi(context);
     }
 
     /**
@@ -138,7 +173,7 @@ public class PermissionSetting implements SettingService {
      */
     private static Intent meizuApi(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            return defaultApi(context);
+            return commonApi(context);
         }
         Intent intent = new Intent("com.meizu.safe.security.SHOW_APPSEC");
         intent.putExtra("packageName", context.getPackageName());
@@ -150,13 +185,30 @@ public class PermissionSetting implements SettingService {
      * Smartisan phone to achieve the method.
      */
     private static Intent smartisanApi(Context context) {
-        return defaultApi(context);
+        return commonApi(context);
     }
 
     /**
      * Samsung phone to achieve the method.
      */
     private static Intent samsungApi(Context context) {
-        return defaultApi(context);
+        return commonApi(context);
+    }
+
+
+    public static boolean mISMIUI8 = false;
+    public static boolean mISMIUI8Before = false;
+
+    public static boolean isMIUI8() {
+        try {
+            if (!mISMIUI8Before) {
+                mISMIUI8Before = true;
+                Properties properties = new Properties();
+                properties.load(new FileInputStream(new File(Environment.getRootDirectory(), "build.prop")));
+                mISMIUI8 = "V8".equalsIgnoreCase(properties.getProperty("ro.miui.ui.version.name", null)) || "6".equals(properties.getProperty("ro.miui.ui.version.code", null));
+            }
+        } catch (Exception e) {
+        }
+        return mISMIUI8;
     }
 }
