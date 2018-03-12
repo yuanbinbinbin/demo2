@@ -1,12 +1,18 @@
 package com.base.baselibrary.jni.vm;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,11 +21,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.net.NetworkInterface;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -44,15 +55,13 @@ public class CheckVMUtil {
     public static String getAndroidID(Context context) {
         String ANDROID_ID = Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
         if ("9774d56d682e549c".equals(ANDROID_ID) || ANDROID_ID == null || ANDROID_ID.length() < 13) {
-            ANDROID_ID = new BigInteger(80,new SecureRandom()).toString(16);
+            ANDROID_ID = new BigInteger(80, new SecureRandom()).toString(16);
             if (ANDROID_ID.charAt(0) == '-')
                 ANDROID_ID = ANDROID_ID.substring(1);
             int k = 13 - ANDROID_ID.length();
-            if (k > 0)
-            {
+            if (k > 0) {
                 StringBuilder localStringBuilder = new StringBuilder();
-                while (k > 0)
-                {
+                while (k > 0) {
                     localStringBuilder.append('F');
                     k--;
                 }
@@ -73,13 +82,157 @@ public class CheckVMUtil {
         return Build.MODEL;
     }
 
+    //获取版本号
+    public static int getSDKLevel() {
+        return Build.VERSION.SDK_INT;
+    }
+
     //获取设备号IMEI 不靠谱
     //<uses-permission android:name="android.permission.READ_PHONE_STATE" />
     // 6.0以上需要动态权限
-    public static String getDeviceId(Context act) {
+    //MEID CDMA 电信
+    //IMEI 移动联通
+    //注意：全网通手机Phone在初始化时只创建了GSMPhone，并没有创建CDMAPhone，此时是无法获取到meid。只有插入CDMA卡插入后才会显示
+    public static Map<String, String> getDeviceIds(Context act) {
+        Map<String, String> result = new HashMap<String, String>();
+
         TelephonyManager telephonyManager = (TelephonyManager) act.getSystemService(Context.TELEPHONY_SERVICE);
-        String imei = telephonyManager.getDeviceId();
-        return imei;
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // < 21 5.0
+            String imeiOrMeid = telephonyManager.getDeviceId();
+            if (imeiOrMeid != null) {
+                if (14 == imeiOrMeid.length()) {
+                    result.put("meid", imeiOrMeid);
+                } else {
+                    result.put("imei", imeiOrMeid);
+                }
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // >= 21 5.0
+            Class<?> clazz = null;
+            Method method = null;
+            try {
+                clazz = Class.forName("android.os.SystemProperties");
+                method = clazz.getMethod("get", String.class, String.class);
+                String gsm = (String) method.invoke(null, "ril.gsm.imei", "");
+                String meid = (String) method.invoke(null, "ril.cdma.meid", "");
+                if (meid != null && !"".equals(meid)) {
+                    result.put("meid", meid);
+                }
+                if (gsm != null && !"".equals(gsm)) {
+                    //the value of gsm like:xxxxxx,xxxxxx
+                    String imeiArray[] = gsm.split(",");
+                    if (imeiArray != null && imeiArray.length > 0) {
+                        result.put("imei1", imeiArray[0]);
+
+                        if (imeiArray.length > 1) {
+                            result.put("imei2", imeiArray[1]);
+                        } else {
+                            result.put("imei2", telephonyManager.getDeviceId(1));
+                        }
+                    } else {
+                        result.put("imei1", telephonyManager.getDeviceId(0));
+                        result.put("imei2", telephonyManager.getDeviceId(1));
+                    }
+                } else {
+                    result.put("imei1", telephonyManager.getDeviceId(0));
+                    result.put("imei2", telephonyManager.getDeviceId(1));
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
+
+    public static WifiInfo getWifiInfo(Context act) {
+        try {
+            WifiInfo localWifiInfo = ((WifiManager) act.getApplicationContext().getSystemService(Context.WIFI_SERVICE)).getConnectionInfo();
+            if (((ConnectivityManager) act.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+                String name = localWifiInfo.getSSID();
+                if (name != null) {
+                    return localWifiInfo;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //获取wifi名
+    //<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    public static String getWifiName(Context act) {
+        WifiInfo info = getWifiInfo(act);
+        return info == null ? null : info.getSSID();
+    }
+
+    public static String getBSSID(Context act) {
+        WifiInfo info = getWifiInfo(act);
+        return info == null ? null : info.getBSSID();
+    }
+
+    public static String getWifiMacAddress(Context act) {
+        WifiInfo info = getWifiInfo(act);
+        if (info != null) {
+            String mac = info.getMacAddress();
+            if (null == mac || "".equals(mac) || "02:00:00:00:00:00".equals(mac)) {
+                try {
+                    Enumeration localEnumeration = NetworkInterface.getNetworkInterfaces();
+                    String str1;
+                    try {
+                        Class localClass = Class.forName("android.os.SystemProperties");
+                        str1 = (String) localClass.getMethod("get", new Class[]{String.class, String.class}).invoke(localClass, new Object[]{"wifi.interface", "wlan0"});
+                    } catch (Exception e) {
+                        str1 = "waln0";
+                    }
+                    while (localEnumeration.hasMoreElements()) {
+                        NetworkInterface localNetworkInterface = (NetworkInterface) localEnumeration.nextElement();
+                        byte[] arrayOfByte = localNetworkInterface.getHardwareAddress();
+                        if ((arrayOfByte != null) && (arrayOfByte.length != 0)) {
+                            StringBuilder localStringBuilder = new StringBuilder();
+                            int i = arrayOfByte.length;
+                            for (int j = 0; j < i; j++) {
+                                byte b = arrayOfByte[j];
+                                Object[] arrayOfObject = new Object[1];
+                                arrayOfObject[0] = Byte.valueOf(b);
+                                localStringBuilder.append(String.format("%02X:", arrayOfObject));
+                            }
+                            if (localStringBuilder.length() > 0)
+                                localStringBuilder.deleteCharAt(-1 + localStringBuilder.length());
+                            String str2 = localStringBuilder.toString();
+                            boolean bool = localNetworkInterface.getName().equals(str1);
+                            if (bool)
+                                mac = str2;
+                        }
+                    }
+                    return mac;
+                } catch (Exception e) {
+                    return mac;
+                }
+            }
+        }
+        return null;
+    }
+
+    //获取蓝牙mac地址
+    public static String getBluetoothAddress(Context act) {
+        try {
+            BluetoothAdapter localBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (localBluetoothAdapter != null) {
+                if (localBluetoothAdapter.isEnabled()) {
+                    String result = localBluetoothAdapter.getAddress();
+                    if (!"02:00:00:00:00:00".equals(result))
+                        return result;
+                    return Settings.Secure.getString(act.getContentResolver(), "bluetooth_address");
+                }
+            }
+        } catch (Exception e) {
+        }
+        return null;
     }
 
     //获取CPU频率

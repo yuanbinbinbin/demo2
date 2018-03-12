@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yb.demo">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -50,7 +51,7 @@
         <activity android:name=".activity.md.coordinatorlayouttest.Coordinator1Activity" />
         <activity android:name=".activity.md.sina.LikeSinaActivity" />
         <activity android:name=".activity.ChangeStatusColorActivity" />
-        <activity android:name=".activity.EmulatorCheckActivity" />
+        <activity android:name=".activity.emulatorcheck.EmulatorCheckActivity" />
         <activity android:name=".activity.file.FileSizeActivity" />
         <activity android:name=".activity.multiprocess.messenger.ProcessActivity" />
 

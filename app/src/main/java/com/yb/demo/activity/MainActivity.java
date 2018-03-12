@@ -17,6 +17,7 @@ import com.yb.demo.activity.animations.AnimationActivity;
 import com.yb.demo.activity.customview.CustomViewActivity;
 import com.yb.demo.activity.daemon.DaemonActivity;
 import com.yb.demo.activity.dialog.DialogActivity;
+import com.yb.demo.activity.emulatorcheck.EmulatorCheckActivity;
 import com.yb.demo.activity.eventbus.EventBusActivity;
 import com.yb.demo.activity.exchange.ExchangeActivity;
 import com.yb.demo.activity.file.FileSizeActivity;
