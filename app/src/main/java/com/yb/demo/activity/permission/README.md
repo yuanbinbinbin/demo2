@@ -42,3 +42,4 @@ From : [AndPermission](https://github.com/yanzhenjie/AndPermission)
 	samsung<br>
 	commonDevice
   
+<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/permission.gif" alt="permission.gif" />
