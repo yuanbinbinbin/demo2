@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -155,7 +156,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.jni.JniActivity"></activity>
+        <activity android:name=".activity.jni.JniActivity" />
 
         <!-- 本地保活 -->
         <service
@@ -163,6 +164,8 @@
             android:enabled="true"
             android:exported="true"
             android:process=":nativeDemon" />
+
+        <activity android:name=".activity.permission.PermissionActivity"></activity>
     </application>
 
 </manifest>

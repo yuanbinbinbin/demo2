@@ -26,6 +26,7 @@ import com.yb.demo.activity.listviews.ListViewActivity;
 import com.yb.demo.activity.md.MDActivity;
 import com.yb.demo.activity.memory.MemoryActivity;
 import com.yb.demo.activity.multiprocess.aidl.AidlProcessActivity;
+import com.yb.demo.activity.permission.PermissionActivity;
 import com.yb.demo.activity.share.ShareActivity;
 import com.yb.demo.activity.string.StringActivity;
 import com.yb.demo.utils.ActivityUtil;
@@ -152,6 +153,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 23:
                 ActivityUtil.startActivity(this, JniActivity.class);
                 break;
+            case 24:
+                ActivityUtil.startActivity(this, PermissionActivity.class);
+                break;
         }
     }
 
@@ -225,6 +229,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "Jni");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "Permission");
         datas.add(data1);
         return datas;
     }
