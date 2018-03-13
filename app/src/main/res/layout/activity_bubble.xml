@@ -15,7 +15,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:onClick="start"
-            android:text="START" />
+            android:text="View START" />
 
         <TextView
             android:layout_width="0dp"
@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:onClick="start2"
-            android:text="START" />
+            android:text="Surface START" />
     </LinearLayout>
 
     <LinearLayout

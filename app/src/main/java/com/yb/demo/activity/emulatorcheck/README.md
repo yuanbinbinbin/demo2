@@ -29,4 +29,4 @@
 
 
 - vivoX6D
-<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/vivox6DeviceCheck.png" alt="vivox6DeviceCheck.jpg" />
+<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/vivox6DeviceCheck.jpg" alt="vivox6DeviceCheck.jpg" />
