@@ -17,6 +17,23 @@
 - 夜神
 <img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/yeshenDeviceCheck.png" alt="yeshenDeviceCheck.png" />
 
+- 天天
+<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/tiantianDeviceCheck.png" alt="tiantianDeviceCheck.png" />
+
+- 海马玩
+<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/haimawanDeviceCheck.png" alt="haimawanDeviceCheck.png" />。
+
+- 文卓爷
+<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/wenzhuoyeDeviceCheck.png" alt="wenzhuoyeDeviceCheck.png" />
+
+- 逍遥安卓
+<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/xiaoyaoDeviceCheck.png" alt="xiaoyaoDeviceCheck.png" />
+
+- 蓝叠
+<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/bluestacks.png" alt="bluestacks.png" />
+
+- MuMu
+<img src="https://github.com/yuanbinbinbin/demo2/blob/master/onlinepic/mumuDeviceCheck.png" alt="mumuDeviceCheck.png" />
 
 ##  真实机测试  <br>
 
