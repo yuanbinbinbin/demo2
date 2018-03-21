@@ -11,7 +11,8 @@ android {
         versionCode 1
         versionName "1.0"
         ndk {
-            abiFilters 'armeabi', 'x86', 'armeabi-v7a'//, 'x86_64', 'arm64-v8a', mips, mips64...加入需要生成的文件夹
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a'
+//, 'x86_64', 'arm64-v8a', mips, mips64...加入需要生成的文件夹
 //            armeabi-v7a: 第7代及以上的 ARM 处理器。2011年15月以后的生产的大部分Android设备都使用它.cpu32位
 //            arm64-v8a: 第8代、64位ARM处理器，很少设备，三星 Galaxy S6是其中之一。
 //            armeabi: 第5代、第6代的ARM处理器，早期的手机用的比较多。cpu32
@@ -27,7 +28,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
