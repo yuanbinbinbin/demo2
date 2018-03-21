@@ -20,7 +20,7 @@
 
 2.自定义混淆规则
 
-路径当前module下，proguard-rules.pro文件，可选
+路径当前module下，proguard-rules.pro文件，**可选，根据项目实际情况添加，此项目用到了okhttp与rxjava**
 
     #okhttp  start
 	-dontwarn okhttp3.**
@@ -63,6 +63,6 @@
 
 ##  apk文件  <br>
 
-**[混淆前]()**
+**[混淆前](https://github.com/yuanbinbinbin/demo2/blob/master/packages/proguard/unproguard_app.apk)**
 
-**[混淆后]()**
+**[混淆后](https://github.com/yuanbinbinbin/demo2/blob/master/packages/proguard/proguard_app.apk)**

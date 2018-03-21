@@ -1,6 +1,7 @@
 package com.yb.demo.activity.security;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -66,5 +67,41 @@ public class SecurityActivity extends BaseActivity {
         sb.append(SecurityUtil.decrypt(SecurityUtil.encrypt(content)));
 
         mTvResult.setText(sb.toString());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("test","onStart");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.e("test","onRestart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("test","onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("test","onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("test","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("test","onDestroy");
     }
 }
