@@ -52,7 +52,11 @@ public class ShareActivity extends BaseActivity {
                 public void onClick(View view, Object... content) {
                     ShareChannelInfo info = (ShareChannelInfo) ((ListItem) content[1]).getItem();
                     if (info != null) {
-                        ShareController.getInstance().shareQQByOtherClient(getActivity(), "标题", "我是内容", "http://www.baidu.com", "http://img.zcool.cn/community/0124f358cec437a801219c77cd9b01.jpg", ShareController.Platform.QQ, info.getAppId(),info.getPackageName());
+                        if(info.getPackageName().equals("com.didapinche.booking")){
+                            ShareController.getInstance().shareQQByOtherClient(getActivity(), "标题", "我是内容", "http://www.baidu.com?_wv=2", "http://img.zcool.cn/community/0124f358cec437a801219c77cd9b01.jpg", ShareController.Platform.QQ, info.getAppId(),info.getPackageName());
+                        }else{
+                            ShareController.getInstance().shareQQByOtherClient(getActivity(), "标题", "我是内容", "http://www.baidu.com", "http://img.zcool.cn/community/0124f358cec437a801219c77cd9b01.jpg", ShareController.Platform.QQ, info.getAppId(),info.getPackageName());
+                        }
                     }
                 }
             }, mTvShare.getText().toString(), getQQChanel());
@@ -100,6 +104,7 @@ public class ShareActivity extends BaseActivity {
         itemList.add(new ListItem("王者荣耀", new ShareChannelInfo("com.tencent.tmgp.sgame", "1104466820")));
         itemList.add(new ListItem("微信", new ShareChannelInfo("com.tencent.mm", "1103188687")));
         itemList.add(new ListItem("QQ兴趣部落", new ShareChannelInfo("com.tencent.tribe", "1104830192")));
+        itemList.add(new ListItem("滴答拼车", new ShareChannelInfo("com.didapinche.booking", "1105560960")));
 
         return itemList;
     }
@@ -110,6 +115,7 @@ public class ShareActivity extends BaseActivity {
         itemList.add(new ListItem("王者荣耀", new ShareChannelInfo("com.tencent.tmgp.sgame", "wx95a3a4d7c627e07d")));
         itemList.add(new ListItem("QQ浏览器", new ShareChannelInfo("com.tencent.mtt", "wx64f9cf5b17af074d")));
         itemList.add(new ListItem("QQ兴趣部落", new ShareChannelInfo("com.tencent.tribe", "wx350c755bfee8d760")));
+        itemList.add(new ListItem("滴答拼车", new ShareChannelInfo("com.didapinche.booking", "wxd3a1541d4423bf8f")));
         return itemList;
     }
 
