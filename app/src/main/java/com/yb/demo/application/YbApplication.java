@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.base.baselibrary.config.AppConfig;
 import com.squareup.leakcanary.LeakCanary;
+import com.zhuge.analysis.stat.ZhugeSDK;
 
 /**
  * Created by yb on 2017/12/27.
@@ -15,6 +16,13 @@ public class YbApplication extends Application {
         super.onCreate();
         initConfig();
         initMemmoryCheck();
+        initZhuGe();
+    }
+
+    private void initZhuGe() {
+        //初始化分析跟踪
+        ZhugeSDK.getInstance().init(getApplicationContext());
+        ZhugeSDK.getInstance().openDebug();
     }
 
     private void initConfig() {

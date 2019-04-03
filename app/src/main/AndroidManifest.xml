@@ -30,6 +30,8 @@
         android:largeHeap="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:value="786b588b213244eb94d1020d077c5828" android:name = "ZHUGE_APPKEY"/>
+        <meta-data android:value="Default" android:name = "ZHUGE_CHANNEL"/>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

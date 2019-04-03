@@ -34,6 +34,7 @@ import com.yb.demo.activity.string.StringActivity;
 import com.yb.demo.utils.ActivityUtil;
 import com.yb.demo.utils.DeviceUtil;
 import com.yb.demo.utils.LogUtil;
+import com.yb.demo.utils.ZhuGeUtil;
 import com.yb.demo.weights.ResultListView;
 
 import java.util.ArrayList;
@@ -161,6 +162,11 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 25:
                 ActivityUtil.startActivity(this, SecurityActivity.class);
                 break;
+            case 26:
+                for (int i = 0; i < 100; i++) {
+                    ZhuGeUtil.createNewUser();
+                }
+                break;
         }
     }
 
@@ -240,7 +246,10 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "加密");
+        datas.add(data1);data1 = new HashMap<String, Object>();
+        data1.put("text", "诸葛+1");
         datas.add(data1);
+
         return datas;
     }
 
