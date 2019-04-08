@@ -526,4 +526,33 @@ public class ZhuGeUtil {
             return baos.toByteArray();
         }
     }
+
+    public static class Encoder {
+        public static String decode(String s) {
+            try {
+                return Base64.encodeToString(compress(s.getBytes("UTF-8")),
+                        Base64.DEFAULT).replace("\r", "").replace("\n", "");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+
+        private static byte[] compress(byte[] var0) {
+            byte[] var1 = null;
+
+            try {
+                ByteArrayOutputStream var2 = new ByteArrayOutputStream(var0.length);
+                DeflaterOutputStream var3 = new DeflaterOutputStream(var2);
+                var3.write(var0);
+                var3.finish();
+                var3.close();
+                var1 = var2.toByteArray();
+            } catch (Exception var4) {
+                Log.e("com.zhuge.Utils", "compress error", var4);
+            }
+
+            return var1;
+        }
+    }
 }
