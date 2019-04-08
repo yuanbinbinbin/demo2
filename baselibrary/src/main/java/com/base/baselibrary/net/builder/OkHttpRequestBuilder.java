@@ -1,6 +1,8 @@
 package com.base.baselibrary.net.builder;
 
 
+import android.text.TextUtils;
+
 import com.base.baselibrary.net.request.RequestCall;
 
 import java.util.LinkedHashMap;
@@ -11,6 +13,8 @@ import java.util.Map;
  */
 public abstract class OkHttpRequestBuilder<T extends OkHttpRequestBuilder> {
     protected String url;
+    private String innerUrl;
+    private String innerPath;
     protected Object tag;
     protected Map<String, String> headers;
     protected Map<String, String> params;
@@ -22,10 +26,22 @@ public abstract class OkHttpRequestBuilder<T extends OkHttpRequestBuilder> {
     }
 
     public T url(String url) {
-        this.url = url;
+        this.innerUrl = url;
+        if (!TextUtils.isEmpty(innerPath)) {
+            this.url = innerUrl + innerPath;
+        } else {
+            this.url = innerUrl;
+        }
         return (T) this;
     }
 
+    public T path(String url) {
+        this.innerPath = url;
+        if (!TextUtils.isEmpty(innerUrl)) {
+            this.url = innerUrl + innerPath;
+        }
+        return (T) this;
+    }
 
     public T tag(Object tag) {
         this.tag = tag;
