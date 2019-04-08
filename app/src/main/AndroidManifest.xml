@@ -170,6 +170,7 @@
 
         <activity android:name=".activity.permission.PermissionActivity" />
         <activity android:name=".activity.security.SecurityActivity"></activity>
+        <activity android:name=".activity.net.NetActivity"/>
     </application>
 
 </manifest>

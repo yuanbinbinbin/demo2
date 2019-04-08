@@ -27,6 +27,7 @@ import com.yb.demo.activity.listviews.ListViewActivity;
 import com.yb.demo.activity.md.MDActivity;
 import com.yb.demo.activity.memory.MemoryActivity;
 import com.yb.demo.activity.multiprocess.aidl.AidlProcessActivity;
+import com.yb.demo.activity.net.NetActivity;
 import com.yb.demo.activity.permission.PermissionActivity;
 import com.yb.demo.activity.security.SecurityActivity;
 import com.yb.demo.activity.share.ShareActivity;
@@ -167,6 +168,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                     ZhuGeUtil.createNewUser();
                 }
                 break;
+            case 27:
+                NetActivity.start(this);
+                break;
         }
     }
 
@@ -246,10 +250,13 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "加密");
-        datas.add(data1);data1 = new HashMap<String, Object>();
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
         data1.put("text", "诸葛+1");
         datas.add(data1);
-
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "Net");
+        datas.add(data1);
         return datas;
     }
 
