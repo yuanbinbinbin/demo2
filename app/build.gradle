@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: 'tinker-support.gradle'
 
 android {
     compileSdkVersion 25
@@ -9,7 +10,8 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
+        multiDexEnabled true
         ndk {
             abiFilters 'armeabi', 'x86', 'armeabi-v7a'
 //, 'x86_64', 'arm64-v8a', mips, mips64...加入需要生成的文件夹
@@ -25,10 +27,26 @@ android {
 //           x86设备能够很好的运行ARM类型函数库，但并不保证100%不发生crash，特别是对旧设备。64位设备（arm64-v8a, x86_64, mips64）能够运行32位的函数库，但是以32位模式运行，在64位平台上运行32位版本的ART和Android组件，将丢失专为64位优化过的性能（ART，webview，media等等）。
 //           From:http://blog.csdn.net/ouyang_peng/article/details/51168072
         }
+        signingConfigs {
+            sign {
+                storeFile file('../key.jks')
+                storePassword "yuanbin123"
+                keyAlias "key0"
+                keyPassword "yuanbin123"
+            }
+        }
+        buildTypes {
+            release {
+                signingConfig signingConfigs.sign
+            }
+            debug {
+                signingConfig signingConfigs.sign
+            }
+        }
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -36,6 +54,9 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 }
 
@@ -51,4 +72,12 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     compile 'com.zhuge.analysis:zhugeio:latest.integration'
+
+    compile "com.android.support:multidex:1.0.1" // 多dex配置
+    //注释掉原有bugly的仓库
+    //compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.3.4
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
+    compile 'com.tencent.tinker:tinker-android-lib:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
 }
