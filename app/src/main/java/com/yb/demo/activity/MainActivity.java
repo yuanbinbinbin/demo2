@@ -32,6 +32,7 @@ import com.yb.demo.activity.permission.PermissionActivity;
 import com.yb.demo.activity.security.SecurityActivity;
 import com.yb.demo.activity.share.ShareActivity;
 import com.yb.demo.activity.string.StringActivity;
+import com.yb.demo.activity.video.VideoActivity;
 import com.yb.demo.utils.ActivityUtil;
 import com.yb.demo.utils.DeviceUtil;
 import com.yb.demo.utils.LogUtil;
@@ -171,6 +172,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 27:
                 NetActivity.start(this);
                 break;
+            case 28:
+                VideoActivity.start(this);
+                break;
         }
     }
 
@@ -256,6 +260,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "Net");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "video");
         datas.add(data1);
         return datas;
     }
