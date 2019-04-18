@@ -554,10 +554,11 @@ class CoreVideoView extends SurfaceView implements IVideoPlayControl {
             }
             switch (msg.what) {
                 case 1:
+                    int total = getDuration();
                     if (getCurrentPosition() > 0) {
-                        videoPlayListener.onPlayProgress(getCurrentPosition(), getDuration(), getBufferPercentage());
+                        videoPlayListener.onPlayProgress(getCurrentPosition(), total, (int) (total * 1f / getBufferPercentage()));
                     } else {
-                        videoPlayListener.onPlayProgress(0, getDuration(), getBufferPercentage());
+                        videoPlayListener.onPlayProgress(0, total, (int) (total * 1f / getBufferPercentage()));
                     }
                     mHandler.sendEmptyMessageDelayed(1, 1000);
                     break;

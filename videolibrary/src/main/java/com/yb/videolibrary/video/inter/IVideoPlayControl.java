@@ -111,8 +111,8 @@ public interface IVideoPlayControl {
     /**
      * 设置播放宽高
      *
-     * @param mVideoWidth
-     * @param mVideoHeight
+     * @param suggestWidth
+     * @param suggestHeight
      */
     void resetHolderSize(int suggestWidth, int suggestHeight);
 

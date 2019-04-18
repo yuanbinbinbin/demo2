@@ -5,8 +5,11 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -68,6 +71,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
     //region loading
     View mViewLoadingContainer;
     ImageView mIvLoading;
+    Animation loadingAnimation;
     //endregion
 
     public VideoViewLayout(@NonNull Context context) {
@@ -124,12 +128,15 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
         mIvBottomFullScreen = (ImageView) findViewById(R.id.id_view_videolayout_bottom_full_screen);
         mIvBottomFullScreen.setOnClickListener(this);
         mSbBottomProgress = (SeekBar) findViewById(R.id.id_view_videolayout_bottom_seekbar);
+        mSbBottomProgress.setMax(100);
         //endregion
 
         //region loading
         mViewLoadingContainer = findViewById(R.id.id_view_videolayout_loading_container);
         mIvLoading = (ImageView) findViewById(R.id.id_view_videolayout_loading_iv);
+        loadingAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_video_loading);
         //endregion
+
         //region net error
         mViewNetErrorContainer = findViewById(R.id.id_view_videolayout_net_error_container);
         mViewNetErrorContainer.setOnClickListener(null);
@@ -319,6 +326,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onPreparing();
             }
+            showLoading();
         }
 
         @Override
@@ -326,6 +334,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onPrepared();
             }
+            hideLoading();
         }
 
         @Override
@@ -333,6 +342,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onBufferingUpdate(percent);
             }
+            mSbBottomProgress.setSecondaryProgress(percent);
         }
 
         @Override
@@ -340,6 +350,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onBlockStart();
             }
+            showLoading();
         }
 
         @Override
@@ -347,6 +358,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onBlockEnd();
             }
+            hideLoading();
         }
 
         @Override
@@ -354,6 +366,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onSeekStart();
             }
+            showLoading();
         }
 
         @Override
@@ -361,6 +374,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onSeekEnd();
             }
+            hideLoading();
         }
 
         @Override
@@ -368,6 +382,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onPlay();
             }
+            hideLoading();
         }
 
         @Override
@@ -375,6 +390,10 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             if (outPlayListener != null) {
                 outPlayListener.onPlayProgress(progress, maxProgress, bufferProgress);
             }
+            Log.e("test123", "progress: " + progress + " maxProgress: " + maxProgress + " bufferProgress: " + bufferProgress);
+            mTvBottomPlayTime.setText(covertTime(progress));
+            mTvBottomTotalTime.setText(covertTime(maxProgress));
+            mSbBottomProgress.setProgress((int) (progress * 100f / maxProgress));
         }
 
         @Override
@@ -405,5 +424,44 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             }
         }
     };
+
+    private String covertTime(int time) {
+        time = time / 1000;
+        int s = time % 60;
+        int m = time / 60 % 60;
+        int h = time / 60 / 60;
+        StringBuilder sb = new StringBuilder();
+        if (h > 9) {
+            sb.append(h);
+        } else {
+            sb.append(0);
+            sb.append(h);
+        }
+        sb.append(':');
+        if (m > 9) {
+            sb.append(m);
+        } else {
+            sb.append(0);
+            sb.append(m);
+        }
+        sb.append(':');
+        if (s > 9) {
+            sb.append(s);
+        } else {
+            sb.append(0);
+            sb.append(s);
+        }
+        return sb.toString();
+    }
+
+    private void hideLoading() {
+        mViewLoadingContainer.setVisibility(View.GONE);
+        mIvLoading.clearAnimation();
+    }
+
+    private void showLoading() {
+        mViewLoadingContainer.setVisibility(View.VISIBLE);
+        mIvLoading.startAnimation(loadingAnimation);
+    }
 
 }

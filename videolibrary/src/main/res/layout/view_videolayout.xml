@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="#000000"
+    android:clipChildren="false">
 
     <com.yb.videolibrary.video.core.VideoView
         android:id="@+id/id_view_videolayout_video"
@@ -42,12 +43,13 @@
         android:layout_height="60dp"
         android:layout_centerInParent="true"
         android:src="@drawable/ic_video_play"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/id_view_videolayout_top_container"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/id_view_videolayout_top_back"
@@ -127,7 +129,8 @@
         android:id="@+id/id_view_videolayout_bottom_container"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/id_view_videolayout_bottom_paly_time"
@@ -161,17 +164,6 @@
             android:textColor="#ffffff"
             android:textSize="9sp" />
 
-        <SeekBar
-            android:id="@+id/id_view_videolayout_bottom_seekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:progress="0"
-            android:progressDrawable="@drawable/ic_video_seekbar"
-            android:secondaryProgress="0"
-            android:thumbOffset="0dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -245,4 +237,18 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <SeekBar
+        android:id="@+id/id_view_videolayout_bottom_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-4dp"
+        android:background="@null"
+        android:maxHeight="2dp"
+        android:minHeight="2dp"
+        android:paddingLeft="0dp"
+        android:paddingStart="0dp"
+        android:progressDrawable="@drawable/ic_video_seekbar"
+        android:thumb="@drawable/ic_video_thumb"
+        android:thumbOffset="0dp" />
 </RelativeLayout>

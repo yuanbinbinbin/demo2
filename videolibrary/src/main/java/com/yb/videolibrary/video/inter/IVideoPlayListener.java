@@ -49,6 +49,7 @@ public interface IVideoPlayListener {
 
     /**
      * 视频播放进度
+     * 单位：ms
      */
     void onPlayProgress(int progress, int maxProgress, int bufferProgress);
 
