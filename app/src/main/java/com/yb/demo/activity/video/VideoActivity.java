@@ -47,5 +47,6 @@ public class VideoActivity extends BaseActivity {
 
     public void play(View view) {
         videoViewLayout.setVideoURI(Uri.parse("http://koalareading-online.oss-cn-beijing.aliyuncs.com/multimedia/ER-teacher.mp4"));
+        videoViewLayout.start();
     }
 }
