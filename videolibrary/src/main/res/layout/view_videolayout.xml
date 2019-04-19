@@ -242,13 +242,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-4dp"
         android:background="@null"
         android:maxHeight="2dp"
         android:minHeight="2dp"
         android:paddingLeft="0dp"
         android:paddingStart="0dp"
         android:progressDrawable="@drawable/ic_video_seekbar"
-        android:thumb="@drawable/ic_video_thumb"
+        android:thumb="@null"
         android:thumbOffset="0dp" />
 </RelativeLayout>

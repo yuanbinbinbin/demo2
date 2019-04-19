@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -129,6 +130,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
         mIvBottomFullScreen.setOnClickListener(this);
         mSbBottomProgress = (SeekBar) findViewById(R.id.id_view_videolayout_bottom_seekbar);
         mSbBottomProgress.setMax(100);
+        mSbBottomProgress.setPadding(0, 0, 0, 0);
         //endregion
 
         //region loading
@@ -318,6 +320,39 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
         }
     }
 
+    private boolean isClick = true;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                isClick = true;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                isClick = false;
+                break;
+            case MotionEvent.ACTION_UP:
+                if (isClick) {
+                    showOrHideMenu();
+                }
+                break;
+        }
+        return true;
+    }
+
+    private void showOrHideMenu() {
+        if (mViewBottomContainer.getVisibility() == VISIBLE) {
+            mViewBottomContainer.setVisibility(View.GONE);
+            mViewTopContainer.setVisibility(View.GONE);
+            mViewLeftContainer.setVisibility(View.GONE);
+            mViewRightContainer.setVisibility(View.GONE);
+        } else {
+            mViewBottomContainer.setVisibility(View.VISIBLE);
+            mViewTopContainer.setVisibility(View.VISIBLE);
+            mViewLeftContainer.setVisibility(View.VISIBLE);
+            mViewRightContainer.setVisibility(View.VISIBLE);
+        }
+    }
 
     private IVideoPlayListener innerPlayListener = new IVideoPlayListener() {
 
