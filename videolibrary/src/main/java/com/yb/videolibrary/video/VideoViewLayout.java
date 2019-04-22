@@ -1,6 +1,7 @@
 package com.yb.videolibrary.video;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -153,7 +154,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
     }
 
     private void initData() {
-
+        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
     }
 
     private void initListener() {
@@ -320,16 +321,36 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
         }
     }
 
+    //region 手势
     private boolean isClick = true;
+    private float lastX;
+    private float lastY;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getRawX();
+        float y = event.getRawY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isClick = true;
+                lastX = x;
+                lastY = y;
                 break;
             case MotionEvent.ACTION_MOVE:
                 isClick = false;
+                if (isVerticalMove(lastX, lastY, x, y)) {
+                    if (isInVolumeArea(x)) {
+                        //调节音量
+                        adjustVolume(lastX, lastY, x, y);
+                    } else {
+                        //调节亮度
+                        adjustLight(lastX, lastY, x, y);
+                    }
+                } else {
+                    //调节进度
+                }
+                lastX = x;
+                lastY = y;
                 break;
             case MotionEvent.ACTION_UP:
                 if (isClick) {
@@ -339,6 +360,53 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
         }
         return true;
     }
+
+    //region 音量调节
+    private AudioManager mAudioManager;
+
+    private void adjustVolume(float lastX, float lastY, float x, float y) {
+        int max = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int current = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        int result;
+        if (y > lastY) {
+            //向下滑动，降低音量
+            result = (int) Math.max(current - (y - lastY) / 5, 0);
+        } else {
+            //向上滑动，加大音量
+            result = (int) Math.min(current + (lastY - y) / 5, max);
+        }
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, result, 0);
+    }
+    //endregion
+
+    //region亮度调节
+    private void adjustLight(float lastX, float lastY, float x, float y) {
+        int current = LightController.getLightness(mContext);
+        int result;
+        if (y > lastY) {
+            //向下滑动，降低亮度
+            result = (int) Math.max(current - (y - lastY) / 5, 20);
+        } else {
+            //向上滑动，加大亮度
+            result = (int) Math.min(current + (lastY - y) / 5, 255);
+        }
+        LightController.setLightness(mContext, result);
+    }
+
+    //endregion
+
+    private boolean isInVolumeArea(float x) {
+        return x > getWidth() / 2;
+    }
+
+    private boolean isVerticalMove(float lastX, float lastY, float x, float y) {
+        if (Math.abs(lastX - x) < Math.abs(lastY - y)) {
+            return true;
+        }
+        return false;
+    }
+
+    //endregion
 
     private void showOrHideMenu() {
         if (mViewBottomContainer.getVisibility() == VISIBLE) {
