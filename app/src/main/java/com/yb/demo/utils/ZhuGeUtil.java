@@ -71,7 +71,7 @@ public class ZhuGeUtil {
     private static String deviceVersion;
     private static String deviceResolution;
 
-    private static void init(Context ctx) {
+    public static void init(Context ctx) {
         context = ctx.getApplicationContext();
         initUid(context);
         initKeyChannel(context);
@@ -95,6 +95,37 @@ public class ZhuGeUtil {
             jsonObject.put("tz", 28800000);//TimeZone
             jsonObject.put("ut", timeStamp2Date(System.currentTimeMillis()));
             jsonObject.put("usr", createDid());
+
+            JSONObject platform = createPlatform();
+            JSONObject sessionStart = createSessionStart();
+            JSONArray data = new JSONArray();
+            data.put(platform);
+            data.put(sessionStart);
+            jsonObject.put("data", data);
+            startUpload(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateEvent(String userID) {
+        if (context == null) {
+            return;
+        }
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("ak", appKey);//appKey
+            jsonObject.put("debug", 0);//debug模式
+            jsonObject.put("sln", "itn");//未知
+            jsonObject.put("sdk", "zg_android");
+            jsonObject.put("owner", "zg");
+            jsonObject.put("pl", "and");
+            jsonObject.put("sdkv", "3.3.3");
+            jsonObject.put("tz", 28800000);//TimeZone
+            jsonObject.put("ut", timeStamp2Date(System.currentTimeMillis()));
+            JSONObject did = new JSONObject();
+            did.put("did", userID);
+            jsonObject.put("usr", did);
 
             JSONObject platform = createPlatform();
             JSONObject sessionStart = createSessionStart();
@@ -474,7 +505,7 @@ public class ZhuGeUtil {
         uidJson = object.toString();
     }
 
-    private static String createUid() {
+    public static String createUid() {
         String serial = "" + System.currentTimeMillis();
         String board = Build.BOARD;
         String brand = Build.BRAND;

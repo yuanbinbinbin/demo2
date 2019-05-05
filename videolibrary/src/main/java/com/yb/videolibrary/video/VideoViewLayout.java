@@ -375,7 +375,7 @@ public class VideoViewLayout extends FrameLayout implements IVideoPlayControl, V
             //向上滑动，加大音量
             result = (int) Math.min(current + (lastY - y) / 5, max);
         }
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, result, 0);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, result, AudioManager.FLAG_SHOW_UI);
     }
     //endregion
 

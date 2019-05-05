@@ -1,6 +1,7 @@
 package com.yb.demo.activity;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -165,9 +166,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 ActivityUtil.startActivity(this, SecurityActivity.class);
                 break;
             case 26:
-                for (int i = 0; i < 100; i++) {
-                    ZhuGeUtil.createNewUser();
-                }
+                startUpload();
                 break;
             case 27:
                 NetActivity.start(this);
@@ -177,7 +176,6 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 break;
         }
     }
-
     public List<Map<String, Object>> getDatas() {
         List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
         Map<String, Object> data1 = new HashMap<String, Object>();
@@ -285,4 +283,33 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
         result.show();
     }
+
+    //region ZhuGe
+    Handler handler;
+    ArrayList<String> users = new ArrayList<>();
+
+    private void startUpload() {
+        if (handler == null) {
+            handler = new Handler();
+        }
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        if (users.size() <= 0) {
+            for (int i = 0; i < 10; i++) {
+                users.add(ZhuGeUtil.createUid());
+            }
+        }
+        for (String user : users) {
+            ZhuGeUtil.updateEvent(user);
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startUpload();
+            }
+        }, 10000);
+    }
+
+    //endregion
 }
