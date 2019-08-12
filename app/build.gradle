@@ -81,4 +81,6 @@ dependencies {
     // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
     compile 'com.tencent.tinker:tinker-android-lib:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+    compile  'com.umeng.umsdk:analytics:8.0.0'
+    compile  'com.umeng.umsdk:common:2.0.0'
 }

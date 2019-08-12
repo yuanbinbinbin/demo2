@@ -13,9 +13,10 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.base.baselibrary.utils.LogUtil;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
 
 /**

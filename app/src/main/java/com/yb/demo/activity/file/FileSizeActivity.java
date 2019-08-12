@@ -1,16 +1,13 @@
 package com.yb.demo.activity.file;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.yb.demo.R;
 import com.yb.demo.activity.BaseActivity;
-import com.yb.demo.utils.FileUtil;
+import com.base.baselibrary.utils.FileUtil;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

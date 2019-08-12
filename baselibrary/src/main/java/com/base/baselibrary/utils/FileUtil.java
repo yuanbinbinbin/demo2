@@ -1,4 +1,4 @@
-package com.yb.demo.utils;
+package com.base.baselibrary.utils;
 
 import android.Manifest;
 import android.content.Context;

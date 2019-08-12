@@ -1,11 +1,14 @@
 package com.yb.demo.application;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.base.baselibrary.config.AppConfig;
 import com.base.baselibrary.net.OkHttpUtils;
@@ -15,6 +18,8 @@ import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.tinker.entry.DefaultApplicationLike;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 import com.yb.demo.BuildConfig;
 import com.yb.demo.lib.net.HeaderInterceptor;
 import com.zhuge.analysis.stat.ZhugeSDK;
@@ -44,7 +49,7 @@ public class YbApplication extends DefaultApplicationLike {
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    public void registerActivityLifecycleCallback(Application.ActivityLifecycleCallbacks callbacks) {
+    public void registerActivityLifecycleCallback(final Application.ActivityLifecycleCallbacks callbacks) {
         getApplication().registerActivityLifecycleCallbacks(callbacks);
     }
 
@@ -52,17 +57,67 @@ public class YbApplication extends DefaultApplicationLike {
     @Override
     public void onCreate() {
         super.onCreate();
-        Bugly.init(getApplication(), "84d9fb10ff", BuildConfig.DEBUG);
+        Bugly.init(getApplication(), "84d9fb10ff", false);
         initConfig();
         initNet();
         initMemmoryCheck();
         initZhuGe();
+        initUmeng();
     }
 
     private void initZhuGe() {
         //初始化分析跟踪
         ZhugeSDK.getInstance().init(getApplication());
-        ZhugeSDK.getInstance().openDebug();
+        //ZhugeSDK.getInstance().openDebug();
+    }
+
+    private void initUmeng() {
+        UMConfigure.init(getApplication(), "5cce83d9570df3c171000917", "DefaultChannel", UMConfigure.DEVICE_TYPE_PHONE, null);
+        MobclickAgent.setScenarioType(getApplication(), MobclickAgent.EScenarioType.E_UM_NORMAL);
+        // 选用LEGACY_AUTO页面采集模式
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        // 支持在子进程中统计自定义事件
+        //UMConfigure.setProcessEvent(true);
+        // 打开统计SDK调试模式
+        //UMConfigure.setLogEnabled(true);
+        //MobclickAgent.setDebugMode(true);
+        getApplication().registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                MobclickAgent.onResume(activity);
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                MobclickAgent.onPause(activity);
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
+//        MobclickAgent.onEvent(getApplication(),"application start");
     }
 
     private void initConfig() {
