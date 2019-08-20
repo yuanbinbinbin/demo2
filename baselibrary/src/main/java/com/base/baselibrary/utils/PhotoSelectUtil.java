@@ -29,6 +29,8 @@ public class PhotoSelectUtil {
     public static final int SELECT_PHOTO_ACTION = 2;
     //图片裁剪action
     public static final int CUT_PHOTO_ACTION = 3;
+    //选择视频
+    public static final int SELECT_VIDEO_ACTION = 4;
 
     private Activity mContext;
     private Uri mImageUri;
@@ -71,6 +73,21 @@ public class PhotoSelectUtil {
             select_intent.setDataAndType(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
             mContext.startActivityForResult(select_intent, SELECT_PHOTO_ACTION);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mContext, "系统相册未找到", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void pickVideo() {
+        try {
+            createImageUri();
+            Intent select_intent = new Intent(Intent.ACTION_PICK, null);
+            select_intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            select_intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            select_intent.setDataAndType(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "video/*");
+            mContext.startActivityForResult(select_intent, SELECT_VIDEO_ACTION);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(mContext, "系统相册未找到", Toast.LENGTH_SHORT).show();
@@ -157,6 +174,16 @@ public class PhotoSelectUtil {
                 mListener.onImageZoom(mImageUri.getPath());
             }
             updateGallery(mContext, mImageUri.getPath());
+        } else if (requestCode == SELECT_VIDEO_ACTION) {
+            if (data != null) {
+                if (mListener != null) {
+                    mListener.onVideoSelect(getRealFilePath(mContext, data.getData()));
+                }
+            } else {
+                if (mListener != null) {
+                    mListener.onFailure();
+                }
+            }
         }
     }
 
@@ -202,6 +229,8 @@ public class PhotoSelectUtil {
          */
         void onImageSelect(String imagePath);
 
+        void onVideoSelect(String videoPath);
+
         /**
          * 图片剪切回调
          *
@@ -216,9 +245,7 @@ public class PhotoSelectUtil {
     }
 
     //本地媒体数据库更新
-    private void updateGallery(Context context, String filename)//filename是我们的文件全名，包括后缀哦
-
-    {
+    public static void updateGallery(Context context, String filename) {
         try {
             MediaScannerConnection.scanFile(context,
                     new String[]{filename}, null,
