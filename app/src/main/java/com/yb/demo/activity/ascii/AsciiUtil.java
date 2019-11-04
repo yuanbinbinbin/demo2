@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.text.Layout;
@@ -128,6 +130,7 @@ public class AsciiUtil {
             height1 = width1 * height0 / width0;
         }
         image = Bitmap.createScaledBitmap(image, width1, height1, true);
+        Log.e("test", "image width: " + image.getWidth());
         //输出到指定文件中
         for (int y = 0; y < image.getHeight(); y += 2) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -139,23 +142,58 @@ public class AsciiUtil {
                 colors.add(pixel);
                 text.append(s);
             }
-            text.append("\n");
-            colors.add(0);
+            if (y + 2 < image.getHeight()) {
+                text.append("\n");
+                colors.add(0);
+            }
         }
-        return textAsBitmapColor(text, colors, context);
+        return textAsBitmapColor(text, colors, context, image.getWidth(), 720);
     }
 
-    public static Bitmap textAsBitmapColor(StringBuilder text, List<Integer> colors, Context context) {
-        TextPaint textPaint = new TextPaint();
-        textPaint.setColor(Color.TRANSPARENT);
+    public static Bitmap textAsBitmapColor(StringBuilder text, List<Integer> colors, Context context, float fontCount, int targetWidth) {
+        TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setColor(Color.BLACK);
         textPaint.setAntiAlias(true);
         textPaint.setTypeface(Typeface.MONOSPACE);
-        textPaint.setTextSize(12);
+        textPaint.setTextSize(30);
         textPaint.setFakeBoldText(true);//加粗
+
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
+        float fontSize = 30;
+        while (true) {
+            textPaint.setTextSize(fontSize);
+            float testWidth = (textPaint.measureText("M") * fontCount);
+            Log.e("test", "font Size : " + fontSize + " width: " + testWidth);
+            if (testWidth > targetWidth) {
+                fontSize--;
+            } else {
+                break;
+            }
+        }
+        int width = (int) (textPaint.measureText("M") * fontCount);
+//        textPaint.setTextSize(fontSize);
+        Log.e("test", "M : " + textPaint.measureText("M"));
+        Log.e("test", "@ : " + textPaint.measureText("@"));
+        Log.e("test", "# : " + textPaint.measureText("#"));
+        Log.e("test", "8 : " + textPaint.measureText("8"));
+        Log.e("test", "X : " + textPaint.measureText("X"));
+        Log.e("test", "N : " + textPaint.measureText("N"));
+        Log.e("test", "H : " + textPaint.measureText("H"));
+        Log.e("test", "O : " + textPaint.measureText("O"));
+        Log.e("test", "L : " + textPaint.measureText("L"));
+        Log.e("test", "T : " + textPaint.measureText("T"));
+        Log.e("test", "I : " + textPaint.measureText("I"));
+        Log.e("test", ") : " + textPaint.measureText(")"));
+        Log.e("test", "i : " + textPaint.measureText("i"));
+        Log.e("test", "= : " + textPaint.measureText("="));
+        Log.e("test", "+ : " + textPaint.measureText("+"));
+        Log.e("test", "- : " + textPaint.measureText("-"));
+        Log.e("test", "; : " + textPaint.measureText(";"));
+        Log.e("test", ": : " + textPaint.measureText(":"));
+        Log.e("test", ", : " + textPaint.measureText(","));
+        Log.e("test", ". : " + textPaint.measureText("."));
 
         SpannableStringBuilder spannableString = new SpannableStringBuilder(text);
         ForegroundColorSpan colorSpan;

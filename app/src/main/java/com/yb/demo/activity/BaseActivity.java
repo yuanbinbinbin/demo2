@@ -8,9 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yb.demo.R;
-import com.yb.demo.weights.ResultListView;
+import com.yb.demo.dialog.LoadingDialog;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,4 +66,27 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onResume() {
         super.onResume();
     }
+
+    //region loading
+    private LoadingDialog loading;
+
+    public void showLoading() {
+        dismissLoading();
+        loading = LoadingDialog.newInstance(this);
+        loading.show();
+    }
+
+    public void dismissLoading() {
+        if (loading != null && loading.isShowing()) {
+            loading.dismiss();
+        }
+        loading = null;
+    }
+    //endregion
+
+    //region toast
+    public void toast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+    //endregion
 }

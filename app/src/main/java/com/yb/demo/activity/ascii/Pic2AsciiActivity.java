@@ -3,6 +3,7 @@ package com.yb.demo.activity.ascii;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
 import android.view.View;
@@ -163,7 +164,7 @@ public class Pic2AsciiActivity extends BaseActivity implements PhotoSelectUtil.O
         }
         name = name + (isGrey ? "_grey" : "_color");
         final File newFile = new File(FileUtil.getOutDirPublic(getContext(), "ascii").getAbsolutePath() + File.separator + name + ".mp4");
-        AvcExecuteAsyncTask.execute(new BitmapProvider(videoPath, 30), 30, new CreatorExecuteResponseHander() {
+        AvcExecuteAsyncTask.execute(new BitmapProvider(videoPath, 16), 16, new CreatorExecuteResponseHander() {
             @Override
             public void onSuccess(Object message) {
                 Log.e("test", "create video success: " + message.toString());
