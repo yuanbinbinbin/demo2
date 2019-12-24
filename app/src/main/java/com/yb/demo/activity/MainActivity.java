@@ -36,6 +36,7 @@ import com.yb.demo.activity.security.SecurityActivity;
 import com.yb.demo.activity.share.ShareActivity;
 import com.yb.demo.activity.string.StringActivity;
 import com.yb.demo.activity.video.VideoActivity;
+import com.yb.demo.activity.vp.ViewPagerAnimationActivity;
 import com.yb.demo.utils.ActivityUtil;
 import com.yb.demo.utils.DeviceUtil;
 import com.base.baselibrary.utils.LogUtil;
@@ -113,6 +114,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 break;
             case 3:
                 ActivityUtil.startActivity(this, ListViewActivity.class);
+                break;
+            case 6:
+                ViewPagerAnimationActivity.start(getContext());
                 break;
             case 8:
                 ActivityUtil.startActivity(this, DialogActivity.class);

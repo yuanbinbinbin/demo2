@@ -177,6 +177,9 @@
         <activity android:name=".activity.net.NetActivity"/>
         <activity android:name=".activity.video.VideoActivity"/>
         <activity android:name=".activity.ascii.Pic2AsciiActivity"/>
+        <activity
+            android:name=".activity.vp.ViewPagerAnimationActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
