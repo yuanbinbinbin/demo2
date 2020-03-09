@@ -10,7 +10,10 @@ import android.view.ViewGroup;
  * author : yuanbin<br>
  * tel : 17610999926<br>
  * email : yuanbin@koalareading.com<br>
- * date : 2020/3/9 14:06
+ * date : 2020/3/9 14:06<br>
+ * 1. 在自定义View中处理padding，只需要在onDraw()中处理，别忘记处理布局为wrap_content的情况。<br>
+ * 2. 在自定义ViewGroup中处理padding，只需要在onLayout()中，给子View布局时算上padding的值即可，也别忘记处理布局为wrap_content的情况。<br>
+ * 3. 自定义View无需处理margin，在自定义ViewGroup中处理margin时，需要在onMeasure()中根据margin计算ViewGroup的宽、高，同时在onLayout中布局子View时也别忘记根据margin来布局。<br>
  */
 public class FlowLayout extends ViewGroup {
     public FlowLayout(Context context) {

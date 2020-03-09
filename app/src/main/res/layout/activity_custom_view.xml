@@ -3,6 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.base.baselibrary.weights.SquareFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="#00ff00">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="123456789"
+            android:textSize="200sp" />
+    </com.base.baselibrary.weights.SquareFrameLayout>
+
     <com.base.baselibrary.weights.FlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,6 +62,7 @@
             android:text="123sdfdf"
             android:textColor="#000000" />
     </com.base.baselibrary.weights.FlowLayout>
+
 
     <com.yb.demo.weights.AnimWidthFingerView
         android:layout_width="100dp"
