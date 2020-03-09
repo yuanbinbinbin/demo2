@@ -1,0 +1,119 @@
+package com.base.baselibrary.weights;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+
+/**
+ * desc:流式布局<br>
+ * author : yuanbin<br>
+ * tel : 17610999926<br>
+ * email : yuanbin@koalareading.com<br>
+ * date : 2020/3/9 14:06
+ */
+public class FlowLayout extends ViewGroup {
+    public FlowLayout(Context context) {
+        super(context);
+    }
+
+    public FlowLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public FlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int measureWidthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
+        int measureHeightMode = MeasureSpec.getMode(heightMeasureSpec);
+
+        int height = 0;
+        int width = 0;
+        int lineWidth = 0;
+        int lineHeight = 0;
+        int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View child = getChildAt(i);
+            measureChild(child, widthMeasureSpec, heightMeasureSpec);
+            MarginLayoutParams childParams = (MarginLayoutParams) child.getLayoutParams();
+            int childWidth = child.getMeasuredWidth() + childParams.leftMargin + childParams.rightMargin;
+            int childHeight = child.getMeasuredHeight() + childParams.topMargin + childParams.bottomMargin;
+            if (lineWidth + childWidth > measureWidth) {
+                //需要换行
+                width = Math.max(width, lineWidth);
+                height += lineHeight;
+                lineWidth = childWidth;
+                lineHeight = childHeight;
+            } else {
+                lineWidth += childWidth;
+                lineHeight = Math.max(lineHeight, childHeight);
+            }
+            if (i == childCount - 1) {
+                width = Math.max(width, childWidth);
+                height += lineHeight;
+            }
+        }
+
+        setMeasuredDimension(
+                (MeasureSpec.EXACTLY == measureWidthMode) ? measureWidth : width,
+                (MeasureSpec.EXACTLY == measureHeightMode) ? measureHeight : height
+        );
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        int measureWidth = getMeasuredWidth();
+        int childCount = getChildCount();
+        int lineWidth = 0;
+        int lineHeight = 0;
+        int top = 0;
+        int left = 0;
+        for (int i = 0; i < childCount; i++) {
+            View child = getChildAt(i);
+            MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
+            int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
+            int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
+            if (lineWidth + childWidth > measureWidth) {
+                //需要换行
+                top += lineHeight;
+                left = 0;
+                lineWidth = childWidth;
+                lineHeight = childHeight;
+            } else {
+                lineWidth += childWidth;
+                lineHeight = Math.max(lineHeight, childHeight);
+            }
+            int lc = lp.leftMargin + left;
+            int tc = lp.topMargin + top;
+            int rc = lc + child.getMeasuredWidth();
+            int bc = tc + child.getMeasuredHeight();
+            child.layout(lc, tc, rc, bc);
+
+            left += childWidth;
+        }
+    }
+
+
+    //region 重写生成LayoutParams
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    protected LayoutParams generateLayoutParams(LayoutParams p) {
+        return new MarginLayoutParams(p);
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new MarginLayoutParams(getContext(), attrs);
+    }
+    //endregion
+}
