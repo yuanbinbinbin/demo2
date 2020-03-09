@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2017 Yan Zhenjie
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,4 +22,11 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
+    <declare-styleable name="RoundFrameLayout">
+        <attr name="rfl_corner_radius" format="dimension" />
+        <attr name="rfl_corner_radius_top_left" format="dimension" />
+        <attr name="rfl_corner_radius_top_right" format="dimension" />
+        <attr name="rfl_corner_radius_bottom_left" format="dimension" />
+        <attr name="rfl_corner_radius_bottom_right" format="dimension" />
+    </declare-styleable>
 </resources>

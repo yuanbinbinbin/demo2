@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,6 +16,21 @@
             android:text="123456789"
             android:textSize="200sp" />
     </com.base.baselibrary.weights.SquareFrameLayout>
+
+    <com.base.baselibrary.weights.RoundFrameLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:background="#ff0000"
+        app:rfl_corner_radius="10dp"
+        app:rfl_corner_radius_top_left="15dp"
+        app:rfl_corner_radius_top_right="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000" />
+    </com.base.baselibrary.weights.RoundFrameLayout>
 
     <com.base.baselibrary.weights.FlowLayout
         android:layout_width="match_parent"
