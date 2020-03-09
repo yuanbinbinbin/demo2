@@ -38,64 +38,90 @@ public class FlowLayout extends ViewGroup {
         int lineWidth = 0;
         int lineHeight = 0;
         int childCount = getChildCount();
+        int maxWidth = measureWidth - getPaddingLeft() - getPaddingRight();
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
-            measureChild(child, widthMeasureSpec, heightMeasureSpec);
-            MarginLayoutParams childParams = (MarginLayoutParams) child.getLayoutParams();
-            int childWidth = child.getMeasuredWidth() + childParams.leftMargin + childParams.rightMargin;
-            int childHeight = child.getMeasuredHeight() + childParams.topMargin + childParams.bottomMargin;
-            if (lineWidth + childWidth > measureWidth) {
-                //需要换行
-                width = Math.max(width, lineWidth);
-                height += lineHeight;
-                lineWidth = childWidth;
-                lineHeight = childHeight;
-            } else {
-                lineWidth += childWidth;
-                lineHeight = Math.max(lineHeight, childHeight);
-            }
-            if (i == childCount - 1) {
-                width = Math.max(width, childWidth);
-                height += lineHeight;
+            if (GONE != child.getVisibility()) {
+                measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, 0);
+                MarginLayoutParams childParams = (MarginLayoutParams) child.getLayoutParams();
+                int childWidth = child.getMeasuredWidth() + childParams.leftMargin + childParams.rightMargin;
+                int childHeight = child.getMeasuredHeight() + childParams.topMargin + childParams.bottomMargin;
+                if (lineWidth + childWidth > maxWidth) {
+                    //需要换行
+                    width = Math.max(width, lineWidth);
+                    height += lineHeight;
+                    lineWidth = childWidth;
+                    lineHeight = childHeight;
+                } else {
+                    lineWidth += childWidth;
+                    lineHeight = Math.max(lineHeight, childHeight);
+                }
+                if (i == childCount - 1) {
+                    width = Math.max(width, childWidth);
+                    height += lineHeight;
+                }
             }
         }
 
-        setMeasuredDimension(
-                (MeasureSpec.EXACTLY == measureWidthMode) ? measureWidth : width,
-                (MeasureSpec.EXACTLY == measureHeightMode) ? measureHeight : height
-        );
+        ///< wrap_content的模式
+        if (measureWidthMode == MeasureSpec.AT_MOST && measureHeightMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(
+                    width + getPaddingLeft() + getPaddingRight(),
+                    height + getPaddingTop() + getPaddingBottom()
+            );
+        }
+        ///< 精确尺寸的模式
+        else if (measureWidthMode == MeasureSpec.EXACTLY && measureHeightMode == MeasureSpec.EXACTLY) {
+            setMeasuredDimension(measureWidth, measureHeight);
+        }
+        ///< 宽度尺寸不确定，高度确定
+        else if (measureHeightMode == MeasureSpec.EXACTLY) {
+            setMeasuredDimension(
+                    width + getPaddingLeft() + getPaddingRight(),
+                    measureHeight
+            );
+        }
+        ///< 宽度确定，高度不确定
+        else if (measureWidthMode == MeasureSpec.EXACTLY) {
+            setMeasuredDimension(
+                    measureWidth,
+                    height + getPaddingTop() + getPaddingBottom()
+            );
+        }
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int measureWidth = getMeasuredWidth();
+        int measureWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
         int childCount = getChildCount();
         int lineWidth = 0;
         int lineHeight = 0;
-        int top = 0;
-        int left = 0;
+        int top = getPaddingTop();
+        int left = getPaddingLeft();
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
-            MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
-            int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
-            int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
-            if (lineWidth + childWidth > measureWidth) {
-                //需要换行
-                top += lineHeight;
-                left = 0;
-                lineWidth = childWidth;
-                lineHeight = childHeight;
-            } else {
-                lineWidth += childWidth;
-                lineHeight = Math.max(lineHeight, childHeight);
-            }
-            int lc = lp.leftMargin + left;
-            int tc = lp.topMargin + top;
-            int rc = lc + child.getMeasuredWidth();
-            int bc = tc + child.getMeasuredHeight();
-            child.layout(lc, tc, rc, bc);
+            if (GONE != child.getVisibility()) {
+                MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
+                int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
+                int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
+                if (lineWidth + childWidth > measureWidth) {
+                    //需要换行
+                    top += lineHeight;
+                    left = getPaddingLeft();
+                    lineWidth = childWidth;
+                    lineHeight = childHeight;
+                } else {
+                    lineWidth += childWidth;
+                    lineHeight = Math.max(lineHeight, childHeight);
+                }
+                int lc = lp.leftMargin + left;
+                int tc = lp.topMargin + top;
+                int rc = lc + child.getMeasuredWidth();
+                int bc = tc + child.getMeasuredHeight();
+                child.layout(lc, tc, rc, bc);
 
-            left += childWidth;
+                left += childWidth;
+            }
         }
     }
 
