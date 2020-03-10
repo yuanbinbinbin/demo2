@@ -29,6 +29,7 @@ public class RoundFrameLayout extends FrameLayout {
     private static final float DEFAULT_RADIUS = 0f;
     private final float[] mCornerRadii =
             new float[]{DEFAULT_RADIUS, DEFAULT_RADIUS, DEFAULT_RADIUS, DEFAULT_RADIUS};
+    private boolean isOval;
 
     public RoundFrameLayout(@NonNull Context context) {
         this(context, null);
@@ -40,8 +41,12 @@ public class RoundFrameLayout extends FrameLayout {
 
     public RoundFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        //对于ViewGroup 如果设置了background会走draw方法，如果不设置，就不会走，除非调用下边的方法
+        setWillNotDraw(false);
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
         mRoundViewDelegate = new RoundViewDelegate(this);
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RoundFrameLayout, defStyleAttr, 0);
+        isOval = a.getBoolean(R.styleable.RoundFrameLayout_rfl_is_oval, false);
         int radius = a.getDimensionPixelSize(R.styleable.RoundFrameLayout_rfl_corner_radius, 0);
         mCornerRadii[0] = a.getDimensionPixelSize(R.styleable.RoundFrameLayout_rfl_corner_radius_top_left, radius);
         mCornerRadii[1] = a.getDimensionPixelSize(R.styleable.RoundFrameLayout_rfl_corner_radius_top_right, radius);
@@ -49,6 +54,7 @@ public class RoundFrameLayout extends FrameLayout {
         mCornerRadii[3] = a.getDimensionPixelSize(R.styleable.RoundFrameLayout_rfl_corner_radius_bottom_right, radius);
 
         setRectRadius(mCornerRadii[0], mCornerRadii[1], mCornerRadii[2], mCornerRadii[3]);
+        setOval(isOval);
         a.recycle();
     }
 
@@ -63,6 +69,13 @@ public class RoundFrameLayout extends FrameLayout {
         mCornerRadii[3] = bottomRightPx;
         if (mRoundViewDelegate != null) {
             mRoundViewDelegate.setRectRadius(mCornerRadii[0], mCornerRadii[1], mCornerRadii[2], mCornerRadii[3]);
+        }
+    }
+
+    public void setOval(boolean oval) {
+        this.isOval = oval;
+        if (mRoundViewDelegate != null) {
+            mRoundViewDelegate.setOval(oval);
         }
     }
 
@@ -81,11 +94,13 @@ public class RoundFrameLayout extends FrameLayout {
 
     public static class RoundViewDelegate {
         private final RectF roundRect = new RectF();
+        private Paint ovalPaint;
         private Paint roundPaint;
         private Paint imagePaint;
         private final Path path = new Path();
         /*圆角的半径，依次为左上角xy半径，右上角，左下角，右下角*/
         private float[] rids = {0.0f, 0.0f, 0.0f, 0.0f};
+        private boolean isOval = false;
         private View mView;
 
         public RoundViewDelegate(View view) {
@@ -94,14 +109,20 @@ public class RoundFrameLayout extends FrameLayout {
         }
 
         private void init() {
+
+            ovalPaint = new Paint();
+            ovalPaint.setAntiAlias(true);
+            ovalPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+
             roundPaint = new Paint();
-            roundPaint.setColor(Color.WHITE);
             roundPaint.setAntiAlias(true);
-            roundPaint.setStyle(Paint.Style.FILL);
-            roundPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+            roundPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
 
             imagePaint = new Paint();
-            imagePaint.setXfermode(null);
+            imagePaint.setAntiAlias(true);
+            imagePaint.setStyle(Paint.Style.FILL);
+            imagePaint.setColor(Color.WHITE);
+
         }
 
         public void roundRectSet(int width, int height) {
@@ -128,6 +149,31 @@ public class RoundFrameLayout extends FrameLayout {
             }
         }
 
+        public void setOval(boolean oval) {
+            this.isOval = oval;
+            if (mView != null) {
+                mView.postInvalidate();
+            }
+        }
+
+        public void preDraw(Canvas canvas) {
+            canvas.saveLayer(roundRect, imagePaint, Canvas.ALL_SAVE_FLAG);
+            if (isOval) {
+                canvas.drawOval(roundRect, imagePaint);
+                canvas.saveLayer(roundRect, ovalPaint, Canvas.ALL_SAVE_FLAG);
+            } else {
+                drawTopLeft(canvas);
+                drawTopRight(canvas);
+                drawBottomLeft(canvas);
+                drawBottomRight(canvas);
+                canvas.saveLayer(roundRect, roundPaint, Canvas.ALL_SAVE_FLAG);
+            }
+        }
+
+        public void afterDraw(Canvas canvas) {
+            canvas.restore();
+        }
+
         private void drawTopLeft(Canvas canvas) {
             if (rids[0] > 0) {
                 path.reset();
@@ -137,7 +183,7 @@ public class RoundFrameLayout extends FrameLayout {
                 path.arcTo(new RectF(0, 0, rids[0] * 2, rids[0] * 2),
                         -90, -90);
                 path.close();
-                canvas.drawPath(path, roundPaint);
+                canvas.drawPath(path, imagePaint);
             }
         }
 
@@ -152,7 +198,7 @@ public class RoundFrameLayout extends FrameLayout {
                 path.arcTo(new RectF(width - 2 * topRightRadius, 0, width,
                         topRightRadius * 2), 0, -90);
                 path.close();
-                canvas.drawPath(path, roundPaint);
+                canvas.drawPath(path, imagePaint);
             }
         }
 
@@ -167,7 +213,7 @@ public class RoundFrameLayout extends FrameLayout {
                 path.arcTo(new RectF(0, height - 2 * bottomLeftRadius,
                         bottomLeftRadius * 2, height), 90, 90);
                 path.close();
-                canvas.drawPath(path, roundPaint);
+                canvas.drawPath(path, imagePaint);
             }
         }
 
@@ -183,20 +229,8 @@ public class RoundFrameLayout extends FrameLayout {
                 path.arcTo(new RectF(width - 2 * bottomRightRadius, height - 2
                         * bottomRightRadius, width, height), 0, 90);
                 path.close();
-                canvas.drawPath(path, roundPaint);
+                canvas.drawPath(path, imagePaint);
             }
-        }
-
-        public void preDraw(Canvas canvas) {
-            canvas.saveLayer(roundRect, imagePaint, Canvas.ALL_SAVE_FLAG);
-        }
-
-        public void afterDraw(Canvas canvas) {
-            drawTopLeft(canvas);
-            drawTopRight(canvas);
-            drawBottomLeft(canvas);
-            drawBottomRight(canvas);
-            canvas.restore();
         }
     }
 }

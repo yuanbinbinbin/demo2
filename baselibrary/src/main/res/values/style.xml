@@ -23,6 +23,7 @@
     </style>
 
     <declare-styleable name="RoundFrameLayout">
+        <attr name="rfl_is_oval" format="boolean" />
         <attr name="rfl_corner_radius" format="dimension" />
         <attr name="rfl_corner_radius_top_left" format="dimension" />
         <attr name="rfl_corner_radius_top_right" format="dimension" />
