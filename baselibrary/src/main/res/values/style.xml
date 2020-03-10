@@ -29,5 +29,8 @@
         <attr name="rfl_corner_radius_top_right" format="dimension" />
         <attr name="rfl_corner_radius_bottom_left" format="dimension" />
         <attr name="rfl_corner_radius_bottom_right" format="dimension" />
+        <attr name="rfl_border_width" format="dimension" />
+        <attr name="rfl_border_color" format="color" />
+
     </declare-styleable>
 </resources>
