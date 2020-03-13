@@ -3,15 +3,12 @@ package com.yb.demo.activity.string;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.Shader;
-import android.util.Log;
-import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yb.demo.R;
 import com.yb.demo.activity.BaseActivity;
-import com.yb.demo.utils.SpannableStringUtil;
+import com.base.baselibrary.utils.SpannableStringUtil;
 
 public class StringActivity extends BaseActivity {
 
