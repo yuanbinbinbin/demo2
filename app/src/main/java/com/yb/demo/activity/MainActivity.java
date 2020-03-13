@@ -18,6 +18,7 @@ import com.yb.demo.R;
 import com.yb.demo.activity.animations.AnimationActivity;
 import com.yb.demo.activity.ascii.Pic2AsciiActivity;
 import com.yb.demo.activity.customview.CustomViewActivity;
+import com.yb.demo.activity.customview.PinyinTextActivity;
 import com.yb.demo.activity.daemon.DaemonActivity;
 import com.yb.demo.activity.dialog.DialogActivity;
 import com.yb.demo.activity.emulatorcheck.EmulatorCheckActivity;
@@ -104,7 +105,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         LogUtil.i(TAG, "position: " + position);
-        MobclickAgent.onEvent(this,"click");
+        MobclickAgent.onEvent(this, "click");
         switch (position) {
             case 1:
                 ActivityUtil.startActivity(this, CustomViewActivity.class);
@@ -188,8 +189,12 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 30:
                 Pic2AsciiActivity.start(this);
                 break;
+            case 31:
+                ActivityUtil.startActivity(this, PinyinTextActivity.class);
+                break;
         }
     }
+
     public List<Map<String, Object>> getDatas() {
         List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
         Map<String, Object> data1 = new HashMap<String, Object>();
@@ -281,6 +286,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "Pic2Ascii");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "拼音TextView");
         datas.add(data1);
         return datas;
     }

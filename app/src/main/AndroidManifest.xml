@@ -2,26 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yb.demo">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!-- 账户保活Start -->
-
-
-    <!-- 查看账户需要的权限 -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
-    <!-- 添加账户需要的权限 -->
-    <uses-permission
-        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
-        android:maxSdkVersion="22" />
-
-    <!-- 账户保活End -->
     <application
         android:name=".application.TinkerImplApplication"
         android:allowBackup="true"
@@ -34,8 +14,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
-        <meta-data android:value="786b588b213244eb94d1020d077c5828" android:name = "ZHUGE_APPKEY"/>
-        <meta-data android:value="Default" android:name = "ZHUGE_CHANNEL"/>
+
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,6 +25,7 @@
         <activity
             android:name=".activity.listviews.ListViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
+
         <activity android:name=".activity.listviews.PullRefreshActivity" />
         <activity android:name=".activity.listviews.PullLoadMoreActivity" />
         <activity android:name=".activity.image.ImageActivity" />
@@ -60,44 +40,86 @@
         <activity android:name=".activity.emulatorcheck.EmulatorCheckActivity" />
         <activity android:name=".activity.file.FileSizeActivity" />
         <activity android:name=".activity.multiprocess.messenger.ProcessActivity" />
+        <activity android:name=".activity.multiprocess.aidl.AidlProcessActivity" />
+        <activity android:name=".activity.rx.RxAndroidActivity" />
+
+        <activity android:name=".activity.share.ShareActivity" />
+
+        <activity android:name=".activity.dialog.DialogActivity" />
+
+        <activity android:name=".activity.listviews.RefreshSingleItemActivity" />
+
+        <activity android:name=".activity.customview.CustomViewActivity" />
+        <activity android:name=".activity.customview.PinyinTextActivity" />
+        <activity android:name=".activity.bezier.BezierActivity" />
+        <activity android:name=".activity.animations.ParabolaActivity" />
+        <activity android:name=".activity.animations.AnimationActivity" />
+        <activity android:name=".activity.animations.WaveActivity" />
+        <activity android:name=".activity.animations.DotActivity" />
+        <activity android:name=".activity.daemon.jobservice.JobServicActivity" />
+        <activity android:name=".activity.daemon.DaemonActivity" />
+        <activity android:name=".activity.daemon.twoservice.TwoServiceActivity" />
+        <activity android:name=".activity.animations.BubbleActivity" />
+
+        <activity android:name=".activity.animations.ClockActivity" />
+        <activity android:name=".activity.animations.MarqueeActivity" />
+
+        <activity android:name=".activity.string.StringActivity" />
+        <activity android:name=".activity.exchange.meituan1.MeiTuanMainActivity1" />
+
+        <activity android:name=".activity.exchange.ExchangeActivity" />
+        <activity android:name=".activity.memory.MemoryInfoActivity" />
+
+        <activity android:name=".activity.memory.MemoryActivity" />
+        <activity android:name=".activity.jni.JniActivity" />
+        <activity android:name=".activity.permission.PermissionActivity" />
+        <activity android:name=".activity.security.SecurityActivity"></activity>
+        <activity android:name=".activity.net.NetActivity" />
+        <activity android:name=".activity.video.VideoActivity" />
+        <activity android:name=".activity.ascii.Pic2AsciiActivity" />
+        <activity
+            android:name=".activity.vp.ViewPagerAnimationActivity"
+            android:screenOrientation="portrait" />
+        <meta-data
+            android:name="ZHUGE_APPKEY"
+            android:value="786b588b213244eb94d1020d077c5828" />
+
+        <!-- 账户保活Service -->
+        <meta-data
+            android:name="ZHUGE_CHANNEL"
+            android:value="Default" />
+        <provider
+            android:name=".activity.daemon.account.AccountProvider"
+            android:authorities="com.yb.demo.account.provider"
+            android:enabled="true"
+            android:exported="true" />
 
         <service
             android:name=".activity.multiprocess.messenger.OtherProecssService"
             android:enabled="true"
             android:exported="true"
             android:process=":other" />
+        <!-- 账户保活Service -->
 
-        <activity android:name=".activity.multiprocess.aidl.AidlProcessActivity" />
 
+        <!-- 监听通知 保活 方法一 -->
         <service
             android:name=".activity.multiprocess.aidl.AidlOtherProcessService"
             android:enabled="true"
             android:exported="true"
             android:process=":aidlOther" />
 
-        <activity android:name=".activity.rx.RxAndroidActivity" />
-        <activity android:name=".activity.share.ShareActivity" />
-        <activity android:name=".activity.dialog.DialogActivity" />
-        <activity android:name=".activity.listviews.RefreshSingleItemActivity" />
-        <activity android:name=".activity.customview.CustomViewActivity" />
-        <activity android:name=".activity.bezier.BezierActivity" />
-        <activity android:name=".activity.animations.ParabolaActivity" />
-        <activity android:name=".activity.animations.AnimationActivity" />
-        <activity android:name=".activity.animations.WaveActivity" />
-        <activity android:name=".activity.animations.DotActivity" />
-
         <service
             android:name=".activity.daemon.jobservice.DaemonService"
             android:enabled="true"
             android:exported="true" />
+
+        <!-- 本地保活 -->
         <service
             android:name=".activity.daemon.jobservice.MyJobService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <activity android:name=".activity.daemon.jobservice.JobServicActivity" />
-        <activity android:name=".activity.daemon.DaemonActivity" />
 
         <service
             android:name=".activity.daemon.twoservice.DaemonService1"
@@ -108,18 +130,6 @@
             android:enabled="true"
             android:exported="true"
             android:process=":daemon" />
-
-        <activity android:name=".activity.daemon.twoservice.TwoServiceActivity" />
-        <activity android:name=".activity.animations.BubbleActivity" />
-        <activity android:name=".activity.animations.ClockActivity" />
-        <activity android:name=".activity.animations.MarqueeActivity" />
-        <activity android:name=".activity.string.StringActivity" />
-        <activity android:name=".activity.exchange.meituan1.MeiTuanMainActivity1" />
-        <activity android:name=".activity.exchange.ExchangeActivity" />
-        <activity android:name=".activity.memory.MemoryInfoActivity" />
-        <activity android:name=".activity.memory.MemoryActivity" />
-
-        <!-- 账户保活Service -->
         <service
             android:name=".activity.daemon.account.AccountService"
             android:enabled="true"
@@ -144,16 +154,6 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/account_sync_adapter" />
         </service>
-
-        <provider
-            android:name=".activity.daemon.account.AccountProvider"
-            android:authorities="com.yb.demo.account.provider"
-            android:enabled="true"
-            android:exported="true" />
-        <!-- 账户保活Service -->
-
-
-        <!-- 监听通知 保活 方法一 -->
         <service
             android:name=".activity.daemon.notification.NotificationService"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
@@ -162,24 +162,31 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
-        <activity android:name=".activity.jni.JniActivity" />
-
-        <!-- 本地保活 -->
         <service
             android:name=".activity.daemon.c.NativeDemonService"
             android:enabled="true"
             android:exported="true"
             android:process=":nativeDemon" />
-
-        <activity android:name=".activity.permission.PermissionActivity" />
-        <activity android:name=".activity.security.SecurityActivity"></activity>
-        <activity android:name=".activity.net.NetActivity"/>
-        <activity android:name=".activity.video.VideoActivity"/>
-        <activity android:name=".activity.ascii.Pic2AsciiActivity"/>
-        <activity
-            android:name=".activity.vp.ViewPagerAnimationActivity"
-            android:screenOrientation="portrait" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- 账户保活Start -->
+
+
+    <!-- 查看账户需要的权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 添加账户需要的权限 -->
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+
+    <!-- 账户保活End -->
+    <uses-permission
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
+        android:maxSdkVersion="22" />
 
 </manifest>
