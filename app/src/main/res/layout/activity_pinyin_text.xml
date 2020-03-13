@@ -13,6 +13,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="fillWord"
             android:text="填充" />
@@ -21,6 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="showHanziPinyin"
             android:text="汉字拼音" />
@@ -29,6 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="showHanzi"
             android:text="汉字" />
@@ -37,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="showPinyin"
             android:text="拼音" />
@@ -53,6 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="hanziAdd"
             android:text="汉字+5" />
@@ -61,6 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="hanziSub"
             android:text="汉字-5" />
@@ -69,6 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="pinyinAdd"
             android:text="拼音+5" />
@@ -77,6 +84,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="pinyinSub"
             android:text="拼音-5" />
@@ -93,6 +101,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="hanziHAdd"
             android:text="字横距+5" />
@@ -101,6 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="hanziHSub"
             android:text="字距-5" />
@@ -109,6 +119,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="hanziVAdd"
             android:text="字竖距+5" />
@@ -117,6 +128,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="hanziVSub"
             android:text="字竖距-5" />
@@ -125,6 +137,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="HanZiPinyinAdd"
             android:text="拼音文字竖距+5" />
@@ -133,6 +146,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="HanZiPinyinSub"
             android:text="拼音文字竖距-5" />
@@ -149,6 +163,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="showUnderLine"
             android:text="显示下划线" />
@@ -157,6 +172,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="hideUnderLine"
             android:text="隐藏" />
@@ -165,6 +181,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="underLineSpaceAdd"
             android:text="线距+5" />
@@ -173,6 +190,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="underLineSpaceSub"
             android:text="线距-5" />
@@ -181,6 +199,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="underLineColor"
             android:text="颜色" />
@@ -189,6 +208,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="underLineWidthAdd"
             android:text="宽+2" />
@@ -197,6 +217,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="underLineWidthSub"
             android:text="宽-2" />
@@ -205,6 +226,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="underLineSolid"
             android:text="实线" />
@@ -213,6 +235,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="underLineDotted"
             android:text="虚线" />
@@ -229,6 +252,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="specialTextColor"
             android:text="特定文字颜色"
@@ -238,6 +262,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="specialPinyinColor"
             android:text="特定拼音颜色"
@@ -247,6 +272,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="normalTextColor"
             android:text="普通汉字颜色"
@@ -256,6 +282,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="normalPinyinColor"
             android:text="普通拼音颜色"
@@ -265,6 +292,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="allTextColor"
             android:text="汉字All"
@@ -274,6 +302,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="allPinyinColor"
             android:text="拼音All"
@@ -292,6 +321,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="textIndentAdd"
             android:text="首行缩进+1" />
@@ -300,6 +330,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/bg_sent_comment"
             android:gravity="center"
             android:onClick="textIndentSub"
             android:text="首行缩进-1" />
@@ -311,5 +342,6 @@
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:background="@drawable/bg_sent_comment"
         android:padding="10dp" />
 </RelativeLayout>

@@ -17,7 +17,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -60,7 +59,7 @@ public class PinYinTextView extends View {
     private int mVerticalSpacing;
     //汉字与拼音间隔
     private int mPinyinTextSpacing;
-
+    private Spanned mDrawSpanned;
     //是否显示下划线
     private boolean mUnderline = false;
     @ColorInt
@@ -72,6 +71,7 @@ public class PinYinTextView extends View {
 
     //首行缩进
     private int mTextIndent;
+    private int mTextIndentWidth;
     //数据
     private List<PinyinCompat> mDataCompat = new ArrayList<>();
     private List<PinyinBean> mData = new ArrayList<>();
@@ -201,8 +201,8 @@ public class PinYinTextView extends View {
         mUnderlineSolid = true;
 //        mUnderlinePaint.setPathEffect(new DashPathEffect(new float[]{2, 2, 2, 2}, 0));
         mUnderlineSpacing = mHorizontalSpacing;
-        mUnderlineWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, dm);
-
+        mUnderlineWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, dm);
+        mUnderlinePaint.setStrokeWidth(mUnderlineWidth);
         mTextIndent = 0;
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
@@ -464,11 +464,6 @@ public class PinYinTextView extends View {
                 mColorPinyin = mSbColorPinyin.substring(0, mSbColorPinyin.length() - 1);
             }
         }
-
-        Log.e("test", "mText: " + mText);
-        Log.e("test", "mColorText: " + mColorText);
-        Log.e("test", "mPinyin: " + mPinyin);
-        Log.e("test", "mColorPinyin: " + mColorPinyin);
 
         calTextHeight();
         requestLayout();
@@ -735,6 +730,8 @@ public class PinYinTextView extends View {
     }
 
     private void measureText(int widthMeasureSpec, int heightMeasureSpec, String text, float textSize) {
+        mTextIndentWidth = getTextWidth("\u3000", textSize);
+
         int paddingLeft = this.getPaddingLeft();
         int paddingRight = this.getPaddingRight();
         int paddingTop = this.getPaddingTop();
@@ -752,14 +749,14 @@ public class PinYinTextView extends View {
         mPaint.setColor(mTextColor);
         mPaint.setTextSize(textSize);
 
-        Spanned htmlSpan = fromHtml(text);
+        mDrawSpanned = fromHtml(text);
 
-        mStaticLayout = new StaticLayout(htmlSpan, mPaint, sizeWidth, Layout.Alignment.ALIGN_NORMAL, 1.0f, mVerticalSpacing, false);
+        mStaticLayout = new StaticLayout(mDrawSpanned, mPaint, sizeWidth, Layout.Alignment.ALIGN_NORMAL, 1.0f, mVerticalSpacing, false);
         // measured width and height
         int measuredWidth =
                 modeWidth == MeasureSpec.EXACTLY
                         ? sizeWidth
-                        : Math.min(sizeWidth, (int) Math.ceil(Layout.getDesiredWidth(htmlSpan, mPaint)));
+                        : Math.min(sizeWidth, (int) Math.ceil(Layout.getDesiredWidth(mDrawSpanned, mPaint)));
         int measuredHeight =
                 modeHeight == MeasureSpec.EXACTLY
                         ? sizeHeight
@@ -847,7 +844,7 @@ public class PinYinTextView extends View {
 
 
             compat.pinyinTextRect.offset(paddingLeft, paddingTop);
-            if (mUnderline && !(compat.pinyin != null && compat.pinyin.equals(compat.text))) {
+            if (mUnderline && !"\u3000".equals(compat.text)) {
                 canvas.drawLine(
                         compat.pinyinTextRect.left,
                         compat.pinyinTextRect.bottom + mUnderlineSpacing,
@@ -886,7 +883,7 @@ public class PinYinTextView extends View {
     }
 
     private void drawText(Canvas canvas, @ColorInt int color) {
-        if (mStaticLayout != null) {
+        if (mStaticLayout != null && mDrawSpanned != null) {
             mPaint.setColor(color);
             int paddingLeft = this.getPaddingLeft();
             int paddingTop = this.getPaddingTop();
@@ -894,10 +891,18 @@ public class PinYinTextView extends View {
             mStaticLayout.draw(canvas);
             if (mUnderline) {
                 for (int i = 0; i < mStaticLayout.getLineCount(); i++) {
+                    int drawOffset = 0;
+                    try {
+                        int startPosition = mStaticLayout.getLineStart(i);
+                        int endPosition = mStaticLayout.getLineEnd(i);
+                        String lineContent = "" + mDrawSpanned.subSequence(startPosition, endPosition);
+                        drawOffset = createDrawOffset(lineContent);
+                    } catch (Throwable t) {
+                    }
                     int y = i == mStaticLayout.getLineCount() - 1 ? mStaticLayout.getLineBottom(i) : mStaticLayout.getLineBottom(i) - mVerticalSpacing;
                     y += mUnderlineSpacing;
                     canvas.drawLine(
-                            mStaticLayout.getLineLeft(i),
+                            mStaticLayout.getLineLeft(i) + drawOffset,
                             y,
                             mStaticLayout.getLineRight(i),
                             y,
@@ -905,6 +910,19 @@ public class PinYinTextView extends View {
                 }
             }
         }
+    }
+
+    private int createDrawOffset(String lineContent) {
+        if (lineContent != null) {
+            int result = 0;
+            int i = 0;
+            while (i < lineContent.length() && lineContent.charAt(i) == '\u3000') {
+                result += mTextIndentWidth;
+                i++;
+            }
+            return result;
+        }
+        return 0;
     }
 
     //endregion
