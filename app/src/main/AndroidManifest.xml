@@ -183,6 +183,8 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+        <activity android:name=".activity.lifecycle.LifeCycleActivityA"/>
+        <activity android:name=".activity.lifecycle.LifeCycleActivityB"/>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
