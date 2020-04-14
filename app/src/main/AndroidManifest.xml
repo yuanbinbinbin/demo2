@@ -80,6 +80,7 @@
         <activity
             android:name=".activity.vp.ViewPagerAnimationActivity"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="ZHUGE_APPKEY"
             android:value="786b588b213244eb94d1020d077c5828" />
@@ -168,7 +169,7 @@
             android:exported="true"
             android:process=":nativeDemon" />
 
-        <activity android:name=".activity.ServiceActivity"/>
+        <activity android:name=".activity.ServiceActivity" />
 
         <service
             android:name=".service.ServiceSample"
@@ -176,7 +177,14 @@
         <service
             android:name=".service.ServiceBindSample"
             android:process=":ServiceBindSample" />
+
+        <receiver android:name=".receiver.NetStatusReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
