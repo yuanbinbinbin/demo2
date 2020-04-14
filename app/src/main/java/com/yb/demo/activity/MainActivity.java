@@ -1,5 +1,6 @@
 package com.yb.demo.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -192,6 +193,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 31:
                 ActivityUtil.startActivity(this, PinyinTextActivity.class);
                 break;
+            case 32:
+                ActivityUtil.startActivity(this, ServiceActivity.class);
+                break;
         }
     }
 
@@ -289,6 +293,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "拼音TextView");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "Service");
         datas.add(data1);
         return datas;
     }
