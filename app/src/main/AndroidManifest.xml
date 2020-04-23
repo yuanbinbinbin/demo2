@@ -185,6 +185,8 @@
         </receiver>
         <activity android:name=".activity.lifecycle.LifeCycleActivityA"/>
         <activity android:name=".activity.lifecycle.LifeCycleActivityB"/>
+        <activity android:name=".activity.startForCallback.StartForCallbackActivityA" />
+        <activity android:name=".activity.startForCallback.StartForCallbackActivityB" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

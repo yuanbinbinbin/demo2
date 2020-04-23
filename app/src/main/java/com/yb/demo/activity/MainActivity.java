@@ -37,6 +37,7 @@ import com.yb.demo.activity.net.NetActivity;
 import com.yb.demo.activity.permission.PermissionActivity;
 import com.yb.demo.activity.security.SecurityActivity;
 import com.yb.demo.activity.share.ShareActivity;
+import com.yb.demo.activity.startForCallback.StartForCallbackActivityA;
 import com.yb.demo.activity.string.StringActivity;
 import com.yb.demo.activity.video.VideoActivity;
 import com.yb.demo.activity.vp.ViewPagerAnimationActivity;
@@ -200,6 +201,13 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 33:
                 ActivityUtil.startActivity(this, LifeCycleActivityA.class);
                 break;
+            case 34:
+                ActivityUtil.startActivity(this, StartForCallbackActivityA.class);
+                break;
+            case 35:
+                int i = 0;
+                int j = 10 / i;
+                break;
         }
     }
 
@@ -303,6 +311,12 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "Lifecycle");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "startActivityForCallBack");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "create crash");
         datas.add(data1);
         return datas;
     }
