@@ -187,6 +187,8 @@
         <activity android:name=".activity.lifecycle.LifeCycleActivityB"/>
         <activity android:name=".activity.startForCallback.StartForCallbackActivityA" />
         <activity android:name=".activity.startForCallback.StartForCallbackActivityB" />
+        <activity android:name=".activity.vp.adapter.FragmentPageAdapterActivity" />
+        <activity android:name=".activity.vp.adapter.FragmentStatePageAdapterActivity" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

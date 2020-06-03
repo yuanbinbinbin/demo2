@@ -41,6 +41,8 @@ import com.yb.demo.activity.startForCallback.StartForCallbackActivityA;
 import com.yb.demo.activity.string.StringActivity;
 import com.yb.demo.activity.video.VideoActivity;
 import com.yb.demo.activity.vp.ViewPagerAnimationActivity;
+import com.yb.demo.activity.vp.adapter.FragmentPageAdapterActivity;
+import com.yb.demo.activity.vp.adapter.FragmentStatePageAdapterActivity;
 import com.yb.demo.utils.ActivityUtil;
 import com.yb.demo.utils.DeviceUtil;
 import com.base.baselibrary.utils.LogUtil;
@@ -208,6 +210,12 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 int i = 0;
                 int j = 10 / i;
                 break;
+            case 36:
+                ActivityUtil.startActivity(this, FragmentPageAdapterActivity.class);
+                break;
+            case 37:
+                ActivityUtil.startActivity(this, FragmentStatePageAdapterActivity.class);
+                break;
         }
     }
 
@@ -317,6 +325,12 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "create crash");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "FragmentPageAdapterActivity");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "FragmentStatePageAdapterActivity");
         datas.add(data1);
         return datas;
     }
