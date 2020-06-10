@@ -90,4 +90,32 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+    <com.yb.demo.activity.customview.ParentView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.yb.demo.activity.customview.ChildView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#ff0000"
+            android:onClick="layoutChild"
+            android:tag="layout" />
+
+        <com.yb.demo.activity.customview.ChildView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#00ff00"
+            android:onClick="invalidateChild"
+            android:tag="invalidate" />
+
+        <com.yb.demo.activity.customview.ChildView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#0000ff"
+            android:tag="temp" />
+    </com.yb.demo.activity.customview.ParentView>
 </RelativeLayout>

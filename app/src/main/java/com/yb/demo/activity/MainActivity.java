@@ -3,6 +3,7 @@ package com.yb.demo.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.text.method.Touch;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ import com.yb.demo.activity.security.SecurityActivity;
 import com.yb.demo.activity.share.ShareActivity;
 import com.yb.demo.activity.startForCallback.StartForCallbackActivityA;
 import com.yb.demo.activity.string.StringActivity;
+import com.yb.demo.activity.touch.TouchActivity;
 import com.yb.demo.activity.video.VideoActivity;
 import com.yb.demo.activity.vp.ViewPagerAnimationActivity;
 import com.yb.demo.activity.vp.adapter.FragmentPageAdapterActivity;
@@ -216,6 +218,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 37:
                 ActivityUtil.startActivity(this, FragmentStatePageAdapterActivity.class);
                 break;
+            case 38:
+                ActivityUtil.startActivity(this, TouchActivity.class);
+                break;
         }
     }
 
@@ -331,6 +336,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         datas.add(data1);
         data1 = new HashMap<String, Object>();
         data1.put("text", "FragmentStatePageAdapterActivity");
+        datas.add(data1);
+        data1 = new HashMap<String, Object>();
+        data1.put("text", "Touch分发");
         datas.add(data1);
         return datas;
     }

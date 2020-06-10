@@ -189,6 +189,7 @@
         <activity android:name=".activity.startForCallback.StartForCallbackActivityB" />
         <activity android:name=".activity.vp.adapter.FragmentPageAdapterActivity" />
         <activity android:name=".activity.vp.adapter.FragmentStatePageAdapterActivity" />
+        <activity android:name=".activity.touch.TouchActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

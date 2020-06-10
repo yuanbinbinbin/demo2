@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yb.demo.activity.touch.TouchViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/touchGroup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.yb.demo.activity.touch.TouchView
+        android:id="@+id/touchView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:background="#ff0000" />
+
+    <com.yb.demo.activity.touch.TouchView
+        android:id="@+id/touchView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="300dp"
+        android:background="#ff0000" />
+</com.yb.demo.activity.touch.TouchViewGroup>
